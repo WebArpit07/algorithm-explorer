@@ -90,7 +90,7 @@ python -m http.server 8000
 ### Production Cloudflare Pages Deployment
 
 The official production release is deployed on **Cloudflare Pages** via Git integration with the private repository:
-* **Production URL**: `https://algorithm-explorer.pages.dev` (or assigned project slug)
+* **Production URL**: [`https://algorithm-explorer.glitchhunter69.workers.dev/`](https://algorithm-explorer.glitchhunter69.workers.dev/)
 * **GitHub Repository**: [`WebArpit07/algorithm-explorer`](https://github.com/WebArpit07/algorithm-explorer) (Private)
 * **Build Target**: Root directory blank, build command `exit 0`, build output directory `dashboard`
 * **Complete Deployment Specification**: Refer to [`CLOUDFLARE_DEPLOYMENT.md`](file:///d:/DiscreteMathsProject_202612120/CLOUDFLARE_DEPLOYMENT.md) for full configuration, build parameters, and deployment audit logs.

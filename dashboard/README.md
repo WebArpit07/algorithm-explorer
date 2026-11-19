@@ -116,7 +116,7 @@ The official public production release is hosted on **Cloudflare Pages** via nat
 - **Root Directory**: *(empty / repository root)*
 - **Build Command**: `exit 0`
 - **Build Output Directory**: `dashboard`
-- **Production URL**: `https://algorithm-explorer.pages.dev` (or assigned project slug)
+- **Production URL**: `https://algorithm-explorer.glitchhunter69.workers.dev/`
 
 Only the `dashboard/` directory is published as the document root; all Python source code, raw data, tests, and LaTeX monographs remain securely isolated inside the repository.
 

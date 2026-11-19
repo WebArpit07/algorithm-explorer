@@ -19,9 +19,10 @@ This document records the official deployment configuration, Git repository sync
 | **Build Command** | Build Pipeline Script | `exit 0` (Static HTML5/JS — no build compilation required) |
 | **Build Output Directory** | Public Web Root | `dashboard` (Exposes only the website; excludes raw source/LaTeX) |
 | **Environment Variables** | Configuration Secrets | None required (Fully client-side vanilla ES2022) |
-| **Expected Public URL** | Cloudflare Pages Domain | `https://algorithm-explorer.pages.dev` |
-| **Deployment Mechanism** | Continuous Delivery | Push to `main` $\rightarrow$ Cloudflare Pages auto-deploys |
-| **Verification Timestamp** | Timestamp (IST) | `2026-11-19 19:35:00 IST` |
+| **Deployment Status** | Production Status | **LIVE & VERIFIED** |
+| **Public Website URL** | Live Production Endpoint | [`https://algorithm-explorer.glitchhunter69.workers.dev/`](https://algorithm-explorer.glitchhunter69.workers.dev/) |
+| **Deployment Mechanism** | Continuous Delivery | Push to `main` $\rightarrow$ Cloudflare auto-deploys |
+| **Verification Timestamp** | Timestamp (IST) | `2026-11-19 22:15:00 IST` |
 
 ---
 
@@ -33,13 +34,13 @@ The production deployment follows a strict isolation architecture:
 Local Workspace (D:\DiscreteMathsProject_202612120)
        ↓ (git push origin main)
 Private GitHub Repository (WebArpit07/algorithm-explorer)
-       ↓ (Cloudflare Pages GitHub App Webhook)
+       ↓ (Cloudflare Git Integration Webhook)
 Cloudflare Edge Build Environment
        ├── Root Directory: (Repository Root)
        ├── Build Command: exit 0
        └── Build Output Directory: dashboard
               ↓
-Production Public Website (https://algorithm-explorer.pages.dev)
+Production Public Website (https://algorithm-explorer.glitchhunter69.workers.dev/)
        ├── index.html
        ├── css/style.css
        ├── data/benchmark_data.js & benchmark_data.json

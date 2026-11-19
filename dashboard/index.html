@@ -27,9 +27,10 @@
                     <li><a href="#searching-lab">Searching Lab</a></li>
                     <li><a href="#sorting-lab">Sorting Lab</a></li>
                     <li><a href="#comparison-lab">Comparison Lab</a></li>
-                    <li><a href="#growth-lab">Growth of Functions</a></li>
-                    <li><a href="#benchmarks">Python Benchmarks</a></li>
+                    <li><a href="#growth-lab">Growth Functions</a></li>
+                    <li><a href="#benchmarks">Benchmarks</a></li>
                     <li><a href="#references">References</a></li>
+                    <li class="nav-live-item"><a href="https://algorithm-explorer.glitchhunter69.workers.dev/" target="_blank" rel="noopener" class="nav-live-btn"><span class="live-dot"></span>Live</a></li>
                 </ul>
             </nav>
         </div>
@@ -48,7 +49,7 @@
                 </div>
                 <h2 class="hero-title">Algorithm Explorer: Analytical & Empirical Complexity Platform</h2>
                 <p class="hero-subtitle">
-                    A comprehensive, interactive computational environment investigating algorithm design, formal asymptotic growth ($\mathcal{O}, \Omega, \Theta$), and exact operation counts. Developed for university-level Discrete Mathematics, this suite unifies mathematical proofs with live interactive simulations and empirical telemetry from Python microbenchmarks.
+                    A comprehensive, interactive computational environment investigating algorithm design, formal asymptotic growth (𝒪, Ω, Θ), and exact operation counts. Developed for university-level Discrete Mathematics, this suite unifies mathematical proofs with live interactive simulations and empirical telemetry from Python microbenchmarks.
                 </p>
                 <div class="quick-links">
                     <a href="#searching-lab" class="btn-pill"><span>🔍</span> Searching Lab</a>
@@ -131,7 +132,7 @@
         <section id="explorer" class="section">
             <div class="section-header">
                 <h2 class="section-title"><span class="section-icon">📖</span> Algorithm Explorer: Deep-Dive Foundations</h2>
-                <p class="section-desc">Inspect exact mathematical specifications, loop invariants, pseudocode, and formal complexity classifications from Rosen Chapter 3.</p>
+                <p class="section-desc">Formal mathematical specifications, loop invariants, pseudocode, and complexity bounds grounded in Kenneth H. Rosen, <em>Discrete Mathematics and Its Applications</em> (8th Edition), Chapter 3 (Sections 3.1–3.3).</p>
             </div>
 
             <div class="tabs-nav">
@@ -531,26 +532,6 @@
                             <td>Rosen, Kenneth H. <em>Discrete Mathematics and Its Applications</em>, 8th Edition. McGraw-Hill Education, 2019.</td>
                             <td>Primary textbook curriculum. Chapter 3: §3.1 Algorithms, §3.2 Growth of Functions, §3.3 Complexity of Algorithms.</td>
                         </tr>
-                        <tr>
-                            <td><code>Cormen2022</code></td>
-                            <td>Cormen, Thomas H., Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein. <em>Introduction to Algorithms</em>, 4th Edition. MIT Press, 2022.</td>
-                            <td>Loop invariant definitions, formal $\mathcal{O}, \Omega, \Theta$ witness bounds, and asymptotic analysis conventions.</td>
-                        </tr>
-                        <tr>
-                            <td><code>Knuth1998</code></td>
-                            <td>Knuth, Donald E. <em>The Art of Computer Programming, Volume 3: Sorting and Searching</em>, 2nd Edition. Addison-Wesley, 1998.</td>
-                            <td>Inversion count dynamics, comparative sorting bounds, and average-case analysis of Bubble and Insertion sorts.</td>
-                        </tr>
-                        <tr>
-                            <td><code>Hoare1962</code></td>
-                            <td>Hoare, C. A. R. "Quicksort." <em>The Computer Journal</em> 5, no. 1 (1962): 10–16.</td>
-                            <td>Foundational divide-and-conquer principles and recursive partitioning methodologies.</td>
-                        </tr>
-                        <tr>
-                            <td><code>Peters2002</code></td>
-                            <td>Peters, Tim. "Timsort: Adaptive, stable, natural mergesort." <em>CPython Source Repository</em>, 2002.</td>
-                            <td>Modern real-world application of Insertion Sort on small runs and pre-sorted subsequences.</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -560,25 +541,10 @@
 
     <!-- SITE FOOTER -->
     <footer class="site-footer">
-        <div class="footer-container">
-            <div class="footer-col">
-                <h5>Algorithm Explorer Monograph Suite</h5>
-                <p>University-level Discrete Mathematics and Algorithm Complexity project.</p>
-                <p style="margin-top: 0.5rem; color: var(--text-muted);">Grounded in Kenneth H. Rosen, 8th Edition, Chapter 3.</p>
-            </div>
-            <div class="footer-col">
-                <h5>Academic Deliverables</h5>
-                <ul>
-                    <li><a href="../Algorithm_Explorer_Report.tex">Master LaTeX Source (.tex)</a></li>
-                    <li><a href="../Algorithm_Explorer_Report_Overleaf.zip">Overleaf Distribution Bundle (.zip)</a></li>
-                    <li><a href="../notebooks/algorithm_explorer.ipynb">Interactive Jupyter Notebook (.ipynb)</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h5>Project Status</h5>
-                <p>Milestone M1–M6 Complete · 60 Unit Tests Passing</p>
-                <p style="margin-top: 0.25rem;">Runtime: Python 3.14.7 · Client: Vanilla JS ES2022</p>
-            </div>
+        <div class="footer-container-clean">
+            <p class="footer-brand"><strong>Algorithm Explorer</strong> · Discrete Mathematics &amp; Computational Complexity</p>
+            <p class="footer-ref">Academic Reference: Kenneth H. Rosen, <em>Discrete Mathematics and Its Applications</em> (8th Edition), Chapter 3.</p>
+            <p class="footer-link"><a href="https://algorithm-explorer.glitchhunter69.workers.dev/" target="_blank" rel="noopener">algorithm-explorer.glitchhunter69.workers.dev</a></p>
         </div>
     </footer>
 

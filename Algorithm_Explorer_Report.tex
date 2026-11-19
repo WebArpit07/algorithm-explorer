@@ -114,13 +114,13 @@
 
 % Metadata Constants
 \newcommand{\DocTitle}{Algorithm Explorer: An Analytical and Empirical Study of Algorithms, Growth of Functions and Computational Complexity}
-\newcommand{\DocSubtitle}{A Faculty-Aligned Analytical Note for MSc Information Technology}
-\newcommand{\DocAuthor}{Arpit (WebArpit07)}
+\newcommand{\DocSubtitle}{Algorithm Assignment Of Discrete Mathematics}
+\newcommand{\DocAuthor}{Patel Arpit Dasharathbhai}
 \newcommand{\DocRollNumber}{202612120}
 \newcommand{\DocCourse}{MSc (Information Technology)}
 \newcommand{\DocCourseCode}{MSc-IT-DM-2026}
-\newcommand{\DocFaculty}{Department of Information Technology}
-\newcommand{\DocUniversity}{Veer Narmad South Gujarat University}
+\newcommand{\DocFaculty}{\href{https://algorithm-explorer.glitchhunter69.workers.dev/}{\texttt{https://algorithm-explorer.glitchhunter69.workers.dev/}}}
+\newcommand{\DocUniversity}{LIVE : Algorithm Explorer}
 \newcommand{\DocAcademicYear}{2026--2027}
 \newcommand{\DocDate}{\today}
 
@@ -152,14 +152,14 @@
         \begin{flushleft} \large
             \emph{Prepared by:}\\
             \textbf{\DocAuthor}\\
-            Enrollment ID: \texttt{\DocRollNumber}
+            Student ID: \texttt{\DocRollNumber}
         \end{flushleft}
     \end{minipage}
     \hfill
     \begin{minipage}{0.48\textwidth}
         \begin{flushright} \large
             \emph{Academic Subject:}\\
-            \textbf{Algorithms \& Complexity}\\
+            \textbf{Discrete Mathematics \- SC612}\\
             Primary Reference: Rosen Ch.~3
         \end{flushright}
     \end{minipage}
@@ -183,8 +183,8 @@ This analytical monograph presents a rigorous, curriculum-aligned academic exami
 To bridge theoretical proofs with empirical validation, four canonical algorithms are subjected to exhaustive practical study: Linear Search, Binary Search, Bubble Sort (Rosen's fixed-pass formulation), and Insertion Sort. Using a verified Python 3.14.7 benchmarking testbed with hardware-calibrated nanosecond telemetry over $k = 30$ independent replications across scales up to $n = 100\,000$, we contrast exact analytical operation-count formulas with empirical counts (yielding a verified 0.00\% discrepancy) and wall-clock execution times. All nine validated experimental figures and execution outputs generated through our Jupyter Research Notebook are integrated into this monograph. Additionally, an interactive standalone HTML5 web dashboard is presented to support visual, real-time algorithmic experimentation.
 \end{abstract}
 
-\vspace{0.5cm}
-\noindent\textbf{Keywords:} Discrete Mathematics, Kenneth H. Rosen, Algorithm Analysis, Growth of Functions, Asymptotic Notations, Time Complexity, Linear Search, Binary Search, Bubble Sort, Insertion Sort, Inversion Equivalence.
+% \vspace{0.5cm}
+% \noindent\textbf{Keywords:} Discrete Mathematics, Kenneth H. Rosen, Algorithm Analysis, Growth of Functions, Asymptotic Notations, Time Complexity, Linear Search, Binary Search, Bubble Sort, Insertion Sort, Inversion Equivalence.
 
 \newpage
 \tableofcontents
@@ -1061,21 +1061,19 @@ The dashboard adheres to a zero-framework, zero-CDN dependency design philosophy
     \item \textbf{Dual JSON/JS Data Layer}: Pre-packaged Python M3 benchmark results load instantly offline via both HTTP and \texttt{file://} protocols.
 \end{itemize}
 
-\section{Deployment Status and Public Website Links}
-The dashboard is maintained in our private GitHub repository and configured for production hosting:
+\section{Live Production Deployment}
+The dashboard is maintained in our private GitHub repository and deployed live on Cloudflare Workers/Pages:
 \begin{itemize}
     \item \textbf{Private GitHub Source}: \url{https://github.com/WebArpit07/algorithm-explorer}
+    \item \textbf{Verified Live Production Website}:
+    \begin{center}
+        \href{https://algorithm-explorer.glitchhunter69.workers.dev/}{\Large\textbf{https://algorithm-explorer.glitchhunter69.workers.dev/}}
+    \end{center}
     \item \textbf{Local Web Server Execution}:
     \begin{verbatim}
 python -m http.server 8000
 # Navigate to: http://localhost:8000/dashboard/
     \end{verbatim}
-    \item \textbf{Cloudflare Pages Production Integration}: Configured under project slug \texttt{algorithm-explorer} with document root isolated strictly to \texttt{dashboard/}.
-    
-    \noindent\textbf{Public Deployment Status}: While the local dashboard is 100\% complete and tested, the live public domain assignment on Cloudflare Pages is currently \emph{pending final 1-click Git authorization in the Cloudflare web console}. Once authorized, the public site will be accessible at:
-    \begin{center}
-        \url{https://algorithm-explorer.pages.dev}
-    \end{center}
 \end{itemize}
 
 \chapter{Conclusion}
