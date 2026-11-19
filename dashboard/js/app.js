@@ -486,7 +486,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 caseType: scenario.toUpperCase(),
                 complexity: "Θ(n)",
                 operations: linFinal.comparisons,
-                color: "#38bdf8",
+                color: "#be185d",
                 note: `Browser runtime: ${(t1Linear - t0Linear).toFixed(3)} ms (Client illustrative only)`
             },
             {
@@ -494,7 +494,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 caseType: scenario.toUpperCase(),
                 complexity: "Θ(log n)",
                 operations: binFinal.totalComparisons,
-                color: "#34d399",
+                color: "#16a34a",
                 note: `Browser runtime: ${(t1Binary - t0Binary).toFixed(3)} ms (Speedup: ${(linFinal.comparisons / Math.max(1, binFinal.totalComparisons)).toFixed(1)}x)`
             }
         ];
@@ -543,7 +543,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 caseType: arrangement.toUpperCase(),
                 complexity: "Θ(n²)",
                 operations: bFinal.comparisons,
-                color: "#f87171",
+                color: "#be185d",
                 note: `Comparisons: ${bFinal.comparisons.toLocaleString()} (Strictly invariant n(n-1)/2) | Swaps: ${bFinal.swaps.toLocaleString()}`
             },
             {
@@ -551,7 +551,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 caseType: arrangement.toUpperCase(),
                 complexity: arrangement === "sorted" ? "Θ(n)" : "Θ(n²)",
                 operations: insFinal.comparisons,
-                color: "#34d399",
+                color: "#16a34a",
                 note: `Comparisons: ${insFinal.comparisons.toLocaleString()} | Right Shifts: ${insFinal.rightShifts.toLocaleString()}`
             }
         ];
@@ -704,16 +704,79 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // =========================================================================
-    // 8. MOBILE NAVIGATION MENU TOGGLE
+    // 8. SIDEBAR & MOBILE NAVIGATION CONTROLLER
     // =========================================================================
-    const navToggle = document.getElementById("nav-toggle");
-    const navLinks = document.getElementById("nav-links");
-    if (navToggle && navLinks) {
-        navToggle.addEventListener("click", () => {
-            navLinks.classList.toggle("open");
+    const sidebar = document.getElementById("app-sidebar");
+    const mobileNavToggle = document.getElementById("mobile-nav-toggle") || document.getElementById("nav-toggle");
+    const sidebarCloseBtn = document.getElementById("sidebar-close-btn");
+    const sidebarBackdrop = document.getElementById("sidebar-backdrop");
+    const navItems = document.querySelectorAll(".sidebar-nav .nav-item, #nav-links a");
+
+    function openSidebar() {
+        if (sidebar) sidebar.classList.add("open");
+        if (sidebarBackdrop) sidebarBackdrop.classList.add("active");
+        document.body.style.overflow = window.innerWidth < 1024 ? "hidden" : "";
+    }
+
+    function closeSidebar() {
+        if (sidebar) sidebar.classList.remove("open");
+        if (sidebarBackdrop) sidebarBackdrop.classList.remove("active");
+        document.body.style.overflow = "";
+    }
+
+    if (mobileNavToggle) {
+        mobileNavToggle.addEventListener("click", () => {
+            if (sidebar && sidebar.classList.contains("open")) {
+                closeSidebar();
+            } else {
+                openSidebar();
+            }
         });
-        navLinks.querySelectorAll("a").forEach(link => {
-            link.addEventListener("click", () => navLinks.classList.remove("open"));
+    }
+
+    if (sidebarCloseBtn) {
+        sidebarCloseBtn.addEventListener("click", closeSidebar);
+    }
+
+    if (sidebarBackdrop) {
+        sidebarBackdrop.addEventListener("click", closeSidebar);
+    }
+
+    // Nav click behavior & active state
+    navItems.forEach(item => {
+        item.addEventListener("click", (e) => {
+            navItems.forEach(n => n.classList.remove("active"));
+            item.classList.add("active");
+            if (window.innerWidth < 1024) {
+                closeSidebar();
+            }
         });
+    });
+
+    // ScrollSpy to highlight currently visible section in sidebar
+    const sections = document.querySelectorAll("section.section[id]");
+    if ("IntersectionObserver" in window && sections.length > 0) {
+        const observerOptions = {
+            root: null,
+            rootMargin: "-20% 0px -70% 0px",
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute("id");
+                    navItems.forEach(link => {
+                        const href = link.getAttribute("href");
+                        if (href === `#${id}`) {
+                            navItems.forEach(n => n.classList.remove("active"));
+                            link.classList.add("active");
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(sec => observer.observe(sec));
     }
 });

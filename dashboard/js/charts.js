@@ -12,43 +12,43 @@ const Charts = (() => {
         constant: {
             name: "Constant: 1",
             latex: "\\mathcal{O}(1)",
-            color: "#94a3b8", // Slate
+            color: "#64748b", // Slate
             fn: (n) => 1
         },
         logarithmic: {
             name: "Logarithmic: log₂(n)",
             latex: "\\mathcal{O}(\\log n)",
-            color: "#38bdf8", // Sky blue
+            color: "#0284c7", // Sky blue
             fn: (n) => (n <= 0 ? 0 : Math.log2(n))
         },
         linear: {
             name: "Linear: n",
             latex: "\\mathcal{O}(n)",
-            color: "#34d399", // Emerald
+            color: "#16a34a", // Green
             fn: (n) => n
         },
         linearithmic: {
             name: "Linearithmic: n log₂(n)",
             latex: "\\mathcal{O}(n \\log n)",
-            color: "#fbbf24", // Amber
+            color: "#d97706", // Amber
             fn: (n) => (n <= 0 ? 0 : n * Math.log2(n))
         },
         quadratic: {
             name: "Quadratic: n²",
             latex: "\\mathcal{O}(n^2)",
-            color: "#f87171", // Rose / Red
+            color: "#be185d", // Dark Pink
             fn: (n) => n * n
         },
         exponential: {
             name: "Exponential: 2ⁿ",
             latex: "\\mathcal{O}(2^n)",
-            color: "#c084fc", // Purple
+            color: "#7c3aed", // Violet
             fn: (n) => (n > 60 ? Infinity : Math.pow(2, n))
         },
         factorial: {
             name: "Factorial: n!",
             latex: "\\mathcal{O}(n!)",
-            color: "#f43f5e", // Magenta
+            color: "#dc2626", // Red
             fn: (n) => {
                 if (n > 25) return Infinity;
                 let res = 1;
@@ -146,15 +146,15 @@ const Charts = (() => {
             let svg = `<svg width="100%" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg" class="growth-svg">`;
 
             // Background & Gridlines
-            svg += `<rect width="${width}" height="${height}" fill="#0f172a" rx="8" />`;
+            svg += `<rect width="${width}" height="${height}" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" rx="8" />`;
 
             // X gridlines and ticks
             const xTicks = 8;
             for (let i = 0; i <= xTicks; i++) {
                 const nVal = 1 + (i / xTicks) * (this.maxN - 1);
                 const x = xScale(nVal);
-                svg += `<line x1="${x}" y1="${padding.top}" x2="${x}" y2="${padding.top + plotH}" stroke="#1e293b" stroke-width="1" />`;
-                svg += `<text x="${x}" y="${height - 18}" fill="#94a3b8" font-size="12" text-anchor="middle" font-family="monospace">${nVal.toFixed(nVal >= 10 ? 0 : 1)}</text>`;
+                svg += `<line x1="${x}" y1="${padding.top}" x2="${x}" y2="${padding.top + plotH}" stroke="#f1f5f9" stroke-width="1" />`;
+                svg += `<text x="${x}" y="${height - 18}" fill="#64748b" font-size="12" text-anchor="middle" font-family="'Inter', sans-serif">${nVal.toFixed(nVal >= 10 ? 0 : 1)}</text>`;
             }
 
             // Y gridlines and ticks
@@ -165,17 +165,17 @@ const Charts = (() => {
                 const yVal = frac * maxY;
                 const label = this.isLogScale ? `10^${yVal.toFixed(1)}` : (yVal >= 1000 ? yVal.toExponential(1) : yVal.toFixed(0));
 
-                svg += `<line x1="${padding.left}" y1="${yPos}" x2="${width - padding.right}" y2="${yPos}" stroke="#1e293b" stroke-width="1" />`;
-                svg += `<text x="${padding.left - 10}" y="${yPos + 4}" fill="#94a3b8" font-size="11" text-anchor="end" font-family="monospace">${label}</text>`;
+                svg += `<line x1="${padding.left}" y1="${yPos}" x2="${width - padding.right}" y2="${yPos}" stroke="#f1f5f9" stroke-width="1" />`;
+                svg += `<text x="${padding.left - 10}" y="${yPos + 4}" fill="#64748b" font-size="11" text-anchor="end" font-family="'Inter', sans-serif">${label}</text>`;
             }
 
             // Axes
-            svg += `<line x1="${padding.left}" y1="${padding.top}" x2="${padding.left}" y2="${padding.top + plotH}" stroke="#475569" stroke-width="2" />`;
-            svg += `<line x1="${padding.left}" y1="${padding.top + plotH}" x2="${width - padding.right}" y2="${padding.top + plotH}" stroke="#475569" stroke-width="2" />`;
+            svg += `<line x1="${padding.left}" y1="${padding.top}" x2="${padding.left}" y2="${padding.top + plotH}" stroke="#cbd5e1" stroke-width="2" />`;
+            svg += `<line x1="${padding.left}" y1="${padding.top + plotH}" x2="${width - padding.right}" y2="${padding.top + plotH}" stroke="#cbd5e1" stroke-width="2" />`;
 
             // Axis titles
-            svg += `<text x="${padding.left + plotW / 2}" y="${height - 2}" fill="#cbd5e1" font-size="12" font-weight="600" text-anchor="middle">Input Size (n)</text>`;
-            svg += `<text x="18" y="${padding.top + plotH / 2}" fill="#cbd5e1" font-size="12" font-weight="600" text-anchor="middle" transform="rotate(-90, 18, ${padding.top + plotH / 2})">${this.isLogScale ? "Growth Scale log₁₀(f(n))" : "Operations f(n)"}</text>`;
+            svg += `<text x="${padding.left + plotW / 2}" y="${height - 2}" fill="#0f172a" font-size="12" font-weight="600" text-anchor="middle" font-family="'Inter', sans-serif">Input Size (n)</text>`;
+            svg += `<text x="18" y="${padding.top + plotH / 2}" fill="#0f172a" font-size="12" font-weight="600" text-anchor="middle" font-family="'Inter', sans-serif" transform="rotate(-90, 18, ${padding.top + plotH / 2})">${this.isLogScale ? "Growth Scale log₁₀(f(n))" : "Operations f(n)"}</text>`;
 
             // Curves
             Object.entries(dataSeries).forEach(([key, pts]) => {

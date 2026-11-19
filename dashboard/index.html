@@ -5,39 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Algorithm Explorer — Interactive Algorithm Analysis & Complexity Visualization grounded in Kenneth H. Rosen, Discrete Mathematics and Its Applications (8th Edition), Chapter 3.">
     <title>Algorithm Explorer — Interactive Algorithm Analysis & Complexity Visualization</title>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <!-- SITE HEADER & NAVIGATION -->
-    <header class="site-header">
-        <div class="header-container">
+<div class="app-shell">
+
+    <!-- VERTICAL SIDEBAR NAVIGATION -->
+    <aside class="app-sidebar" id="app-sidebar">
+        <div class="sidebar-brand-box">
             <div class="logo-group">
                 <span class="logo-badge">MSc IT</span>
                 <div>
                     <h1 class="logo-title">Algorithm Explorer</h1>
-                    <p class="logo-sub">Rosen Ch. 3 Analytical & Empirical Suite</p>
+                    <p class="logo-sub">Rosen Ch. 3 Analytical Suite</p>
                 </div>
             </div>
-            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu">&#9776;</button>
-            <nav>
-                <ul class="nav-links" id="nav-links">
-                    <li><a href="#overview">Overview</a></li>
-                    <li><a href="#explorer">Explorer</a></li>
-                    <li><a href="#searching-lab">Searching Lab</a></li>
-                    <li><a href="#sorting-lab">Sorting Lab</a></li>
-                    <li><a href="#comparison-lab">Comparison Lab</a></li>
-                    <li><a href="#growth-lab">Growth Functions</a></li>
-                    <li><a href="#benchmarks">Benchmarks</a></li>
-                    <li><a href="#references">References</a></li>
-                    <li class="nav-live-item"><a href="https://algorithm-explorer.glitchhunter69.workers.dev/" target="_blank" rel="noopener" class="nav-live-btn"><span class="live-dot"></span>Live</a></li>
-                </ul>
-            </nav>
+            <button class="sidebar-close-btn" id="sidebar-close-btn" aria-label="Close sidebar">✕</button>
         </div>
-    </header>
 
-    <!-- MAIN CONTENT WRAPPER -->
-    <main class="main-wrapper">
+        <nav class="sidebar-nav">
+            <span class="nav-heading">Platform Modules</span>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#overview" class="nav-item active"><span class="nav-icon">🏠</span><span class="nav-label">Overview</span></a></li>
+                <li><a href="#explorer" class="nav-item"><span class="nav-icon">📖</span><span class="nav-label">Algorithm Explorer</span></a></li>
+                <li><a href="#searching-lab" class="nav-item"><span class="nav-icon">🔍</span><span class="nav-label">Searching Lab</span></a></li>
+                <li><a href="#sorting-lab" class="nav-item"><span class="nav-icon">📊</span><span class="nav-label">Sorting Lab</span></a></li>
+                <li><a href="#comparison-lab" class="nav-item"><span class="nav-icon">⚔️</span><span class="nav-label">Comparison Lab</span></a></li>
+                <li><a href="#growth-lab" class="nav-item"><span class="nav-icon">📈</span><span class="nav-label">Growth of Functions</span></a></li>
+                <li><a href="#benchmarks" class="nav-item"><span class="nav-icon">🔬</span><span class="nav-label">Python Benchmarks</span></a></li>
+                <li><a href="#references" class="nav-item"><span class="nav-icon">📚</span><span class="nav-label">References</span></a></li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="https://algorithm-explorer.glitchhunter69.workers.dev/" target="_blank" rel="noopener" class="sidebar-live-card">
+                <div class="live-status-group">
+                    <span class="live-dot"></span>
+                    <div class="live-text">
+                        <span class="live-title">Live Deployment</span>
+                        <span class="live-sub">workers.dev</span>
+                    </div>
+                </div>
+                <span class="live-arrow">↗</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- MOBILE SIDEBAR BACKDROP -->
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+    <!-- MAIN CONTENT VIEWPORT -->
+    <div class="app-viewport">
+        <!-- MOBILE TOP BAR -->
+        <header class="mobile-top-bar">
+            <button class="mobile-menu-btn" id="mobile-nav-toggle" aria-label="Open sidebar">☰</button>
+            <div class="mobile-brand">
+                <span class="logo-badge-sm">MSc IT</span>
+                <span class="mobile-title">Algorithm Explorer</span>
+            </div>
+            <a href="https://algorithm-explorer.glitchhunter69.workers.dev/" target="_blank" rel="noopener" class="mobile-live-badge"><span class="live-dot"></span>Live</a>
+        </header>
+
+        <!-- MAIN SCROLLABLE CONTAINER -->
+        <main class="main-container">
 
         <!-- 1. OVERVIEW & HERO SECTION -->
         <section id="overview" class="section">
@@ -547,6 +582,9 @@
             <p class="footer-link"><a href="https://algorithm-explorer.glitchhunter69.workers.dev/" target="_blank" rel="noopener">algorithm-explorer.glitchhunter69.workers.dev</a></p>
         </div>
     </footer>
+
+    </div><!-- /.app-viewport -->
+</div><!-- /.app-shell -->
 
     <!-- JAVASCRIPT ASSETS -->
     <script src="data/benchmark_data.js"></script>
