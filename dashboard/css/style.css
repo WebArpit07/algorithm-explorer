@@ -19,9 +19,12 @@
     --border-strong: #cbd5e1;
 
     /* Text Hierarchy */
-    --text-primary: #0f172a;       /* Black / Deep Charcoal */
-    --text-secondary: #475569;     /* Deep Gray */
-    --text-muted: #64748b;         /* Slate Gray */
+    --text-primary: #0f172a;
+    /* Black / Deep Charcoal */
+    --text-secondary: #475569;
+    /* Deep Gray */
+    --text-muted: #64748b;
+    /* Slate Gray */
     --text-faint: #94a3b8;
 
     /* Accents: Dark Pink */
@@ -59,7 +62,9 @@
     --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -89,7 +94,8 @@ a:hover {
     color: var(--accent-pink-hover);
 }
 
-code, pre {
+code,
+pre {
     font-family: var(--font-mono);
 }
 
@@ -289,8 +295,17 @@ code, pre {
 }
 
 @keyframes pulseDot {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.85); }
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.4;
+        transform: scale(0.85);
+    }
 }
 
 .live-text {
@@ -615,7 +630,8 @@ code, pre {
     font-weight: 600;
 }
 
-.algo-objective, .algo-principle {
+.algo-objective,
+.algo-principle {
     font-size: 0.92rem;
     color: var(--text-secondary);
     margin-bottom: 0.65rem;
@@ -727,7 +743,8 @@ code, pre {
     white-space: nowrap;
 }
 
-.select-input, .text-input {
+.select-input,
+.text-input {
     background-color: var(--bg-surface);
     border: 1px solid var(--border-strong);
     color: var(--text-primary);
@@ -738,7 +755,8 @@ code, pre {
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.select-input:focus, .text-input:focus {
+.select-input:focus,
+.text-input:focus {
     border-color: var(--accent-pink);
     box-shadow: 0 0 0 3px rgba(190, 24, 93, 0.1);
 }
@@ -930,7 +948,8 @@ code, pre {
     gap: 2px;
 }
 
-.badge-low, .badge-high {
+.badge-low,
+.badge-high {
     background-color: #0284c7;
     color: #ffffff;
     font-size: 0.6rem;
@@ -939,7 +958,8 @@ code, pre {
     font-weight: 700;
 }
 
-.badge-mid, .badge-i {
+.badge-mid,
+.badge-i {
     background-color: var(--accent-pink);
     color: #ffffff;
     font-size: 0.6rem;
@@ -1052,7 +1072,8 @@ code, pre {
     box-shadow: 0 0 8px rgba(190, 24, 93, 0.35);
 }
 
-.bar-pillar.swapping, .bar-pillar.shifting {
+.bar-pillar.swapping,
+.bar-pillar.shifting {
     background-color: #db2777;
     box-shadow: 0 0 8px rgba(219, 39, 119, 0.35);
 }
@@ -1501,7 +1522,9 @@ code, pre {
 }
 
 @media (max-width: 768px) {
-    .detail-grid, .comp-grid {
+
+    .detail-grid,
+    .comp-grid {
         grid-template-columns: 1fr;
     }
 
