@@ -1,0 +1,88 @@
+\chapter{Asymptotic Notations}
+\label{chap:asymptotic}
+
+\section{Introduction}
+To classify algorithmic scaling without becoming mired in machine-specific architectural constants (such as clock multipliers or CPU cache line sizes), discrete mathematics employs \textbf{asymptotic notations}. These notations capture the limiting behavior of functions as $n \to \infty$.
+
+\section{Big-$\mathcal{O}$ Notation (Asymptotic Upper Bound)}
+Big-$\mathcal{O}$ provides an asymptotic upper bound or ceiling on the growth rate of a function.
+
+\begin{definition}[Big-$\mathcal{O}$ (Rosen §3.2, Def. 1)]
+Let $f$ and $g$ be functions from the set of integers or real numbers to the set of real numbers. We write:
+$$f(n) = \mathcal{O}(g(n))$$
+if there exist positive real constants $C > 0$ and $k > 0$ such that:
+$$|f(n)| \le C |g(n)| \quad \text{for all } n > k$$
+The pair of constants $(C, k)$ are called \textbf{witnesses} to the relationship $f(n) = \mathcal{O}(g(n))$.
+\end{definition}
+
+\section{Big-$\Omega$ Notation (Asymptotic Lower Bound)}
+While Big-$\mathcal{O}$ establishes an upper ceiling, Big-$\Omega$ establishes a mathematical floor.
+
+\begin{definition}[Big-$\Omega$ (Rosen §3.2, Def. 3)]
+We write:
+$$f(n) = \Omega(g(n))$$
+if there exist positive real constants $C > 0$ and $k > 0$ such that:
+$$|f(n)| \ge C |g(n)| \quad \text{for all } n > k$$
+\end{definition}
+
+\section{Big-$\Theta$ Notation (Asymptotically Tight Bound)}
+When an algorithm's growth rate is bounded both from above and from below by the same function $g(n)$, we employ Big-$\Theta$ notation.
+
+\begin{definition}[Big-$\Theta$ (Rosen §3.2, Def. 4)]
+We write:
+$$f(n) = \Theta(g(n))$$
+if $f(n)$ is both $\mathcal{O}(g(n))$ and $\Omega(g(n))$. Formally, there exist positive constants $C_1 > 0$, $C_2 > 0$, and $k > 0$ such that:
+$$C_1 |g(n)| \le |f(n)| \le C_2 |g(n)| \quad \text{for all } n > k$$
+\end{definition}
+
+\section{Comparison of Asymptotic Notations}
+Table \ref{tab:asymptotic_summary} summarizes the three primary asymptotic notations.
+
+\begin{table}[htbp]
+\centering
+\caption{Mathematical Comparison of Asymptotic Notations}
+\label{tab:asymptotic_summary}
+\begin{tabularx}{\textwidth}{l X c c}
+\toprule
+\textbf{Notation} & \textbf{Formal Witness Condition} & \textbf{Intuitive Meaning} & \textbf{Analogy} \\
+\midrule
+$f(n) = \mathcal{O}(g(n))$ & $\exists C, k > 0 : |f(n)| \le C |g(n)|, \forall n > k$ & Upper Bound (Ceiling) & $f \le g$ \\
+$f(n) = \Omega(g(n))$ & $\exists C, k > 0 : |f(n)| \ge C |g(n)|, \forall n > k$ & Lower Bound (Floor) & $f \ge g$ \\
+$f(n) = \Theta(g(n))$ & $\exists C_1, C_2, k > 0 : C_1 |g(n)| \le |f(n)| \le C_2 |g(n)|, \forall n > k$ & Asymptotically Tight Bound & $f = g$ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Worked Mathematical Examples with Witnesses}
+
+\begin{example}[Witness Proof for Linear Function]
+Show that $f(n) = 7n^2 + 5n + 12$ is $\mathcal{O}(n^2)$.
+\begin{proof}
+For all $n \ge 1$, we observe:
+$$5n \le 5n^2 \quad \text{and} \quad 12 \le 12n^2$$
+Therefore:
+$$|f(n)| = 7n^2 + 5n + 12 \le 7n^2 + 5n^2 + 12n^2 = 24n^2$$
+Thus, selecting witnesses $C = 24$ and $k = 1$, we have $|f(n)| \le C n^2$ for all $n > k$. Hence, $f(n) = \mathcal{O}(n^2)$.
+\end{proof}
+\end{example}
+
+\begin{example}[Witness Proof for Tight Bound]
+Show that $f(n) = 3n^2 - 4n$ is $\Theta(n^2)$.
+\begin{proof}
+For $n \ge 4$, $4n \le n^2$, so:
+$$f(n) = 3n^2 - 4n \ge 3n^2 - n^2 = 2n^2$$
+Similarly, for $n \ge 1$:
+$$f(n) = 3n^2 - 4n \le 3n^2$$
+Choosing witnesses $C_1 = 2$, $C_2 = 3$, and $k = 4$, we have:
+$$2n^2 \le f(n) \le 3n^2 \quad \forall n > 4$$
+Hence, $f(n) = \Theta(n^2)$.
+\end{proof}
+\end{example}
+
+\section{Importance in Algorithm Analysis}
+In popular discourse, programmers often use "Big-O" loosely to describe the actual execution time. In academic discrete mathematics:
+\begin{enumerate}
+    \item We do not conflate Big-$\mathcal{O}$ with tight bounds. An algorithm with runtime $f(n) = 3n$ is strictly $\mathcal{O}(n^2)$, but that upper bound is loose; its tight bound is $\Theta(n)$.
+    \item We isolate witness constants to demonstrate when asymptotic domination takes effect.
+    \item We separate worst-case Big-$\mathcal{O}$ from best-case Big-$\Omega$.
+\end{enumerate}

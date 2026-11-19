@@ -1,0 +1,121 @@
+\documentclass[11pt,a4paper,oneside]{report}
+
+% Configuration and Metadata
+\input{latex/config.tex}
+
+% Styles and Packages
+\usepackage{latex/styles/academic_report}
+
+\begin{document}
+
+% ==============================================================================
+% COVER PAGE
+% ==============================================================================
+\begin{titlepage}
+    \centering
+    \vspace*{1.0cm}
+    
+    {\scshape\Large \DocUniversity \par}
+    \vspace{0.3cm}
+    {\scshape\large \DocFaculty \par}
+    \vspace{0.3cm}
+    {\large \DocCourse\ (\DocCourseCode) \par}
+    
+    \vspace{1.5cm}
+    \rule{\linewidth}{1.2pt}\\[0.4cm]
+    {\huge\bfseries\color{primaryblue} \DocTitle \par}
+    \vspace{0.3cm}
+    {\large\itshape \DocSubtitle \par}
+    \rule{\linewidth}{1.2pt}
+    
+    \vspace{2.0cm}
+    
+    \begin{minipage}{0.48\textwidth}
+        \begin{flushleft} \large
+            \emph{Prepared by:}\\
+            \textbf{\DocAuthor}\\
+            Enrollment ID: \texttt{\DocRollNumber}
+        \end{flushleft}
+    \end{minipage}
+    ~
+    \begin{minipage}{0.48\textwidth}
+        \begin{flushright} \large
+            \emph{Academic Evaluator:}\\
+            \textbf{\DocSupervisor}\\
+            Academic Year: \DocAcademicYear
+        \end{flushright}
+    \end{minipage}
+    
+    \vfill
+    
+    {\large Academic Term Project Report Grounded in\\
+    Kenneth H. Rosen, \emph{Discrete Mathematics and Its Applications} (8th Edition)\par}
+    \vspace{0.5cm}
+    {\large \DocSubmissionDate \par}
+\end{titlepage}
+
+% ==============================================================================
+% ABSTRACT & KEYWORDS
+% ==============================================================================
+\pagenumbering{roman}
+\setcounter{page}{2}
+
+\begin{abstract}
+\noindent
+This academic monograph presents a comprehensive analytical and empirical investigation into computational complexity, asymptotic growth, and algorithmic scaling. Grounded in Chapter 3 of Kenneth H. Rosen's \emph{Discrete Mathematics and Its Applications} (8th Edition), the study investigates four canonical algorithms: Linear Search, Binary Search, Bubble Sort, and Insertion Sort. We mathematically derive exact closed-form operation-count formulas $T(n)$ for best-, average-, and worst-case scenarios, proving asymptotic classifications within $\mathcal{O}$, $\Omega$, and $\Theta$ with explicit witness pairs $(C, k)$. 
+
+To validate theoretical models empirically, we constructed an isolated microbenchmarking harness executing across calibrated input scales ($n \in [100, 100\,000]$ for searching and $n \in [100, 3\,000]$ for sorting) and three fundamental topological permutations (sorted, random, reverse-sorted). Our benchmarking methodology isolates high-resolution execution time measurements ($\pm 100\text{ ns}$) from instrumented operation counters, incorporating statistical replication ($k = 30$ iterations), fresh input copies, and sub-microsecond batch calibration.
+
+The empirical results confirm that discrete operation-count formulas predict real-world telemetry with \textbf{0.00\% discrepancy}. At $n = 100\,000$, Binary Search delivers an empirical speedup of $\approx 1\,946\times$ over Linear Search on missing targets. Furthermore, we empirically prove the Inversion Equivalence Theorem, demonstrating that Bubble Sort swaps and Insertion Sort right shifts are strictly identical ($2\,296\,691$ operations at $n = 3\,000$) on identical random permutations. Finally, we demonstrate that Insertion Sort achieves adaptive linear time $\Theta(n)$ ($0.32\text{ ms}$) on pre-sorted arrays, outperforming fixed-pass Bubble Sort by a factor of $769\times$. All datasets, code listings, execution traces, and publication-quality figures are fully reproducible.
+\end{abstract}
+
+\vspace{0.5cm}
+\noindent\textbf{Keywords}: Discrete Mathematics, Algorithm Analysis, Kenneth H. Rosen, Asymptotic Growth, Big-$\mathcal{O}$ Notation, Computational Complexity, Linear Search, Binary Search, Bubble Sort, Insertion Sort, Inversion Dynamics, Empirical Telemetry.
+
+\clearpage
+
+% ==============================================================================
+% TABLE OF CONTENTS, LIST OF FIGURES, LIST OF TABLES
+% ==============================================================================
+\tableofcontents
+\clearpage
+
+\listoffigures
+\clearpage
+
+\listoftables
+\clearpage
+
+% ==============================================================================
+% MAIN MATTER (ARABIC PAGE NUMBERING)
+% ==============================================================================
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\input{latex/chapters/01_introduction.tex}
+\input{latex/chapters/02_fundamentals_of_algorithms.tex}
+\input{latex/chapters/03_growth_of_functions.tex}
+\input{latex/chapters/04_asymptotic_notations.tex}
+\input{latex/chapters/05_complexity_of_algorithms.tex}
+\input{latex/chapters/06_analytical_study_of_algorithms.tex}
+\input{latex/chapters/07_experimental_methodology.tex}
+\input{latex/chapters/08_experimental_results.tex}
+\input{latex/chapters/09_comparative_analysis.tex}
+\input{latex/chapters/10_conclusion.tex}
+
+% ==============================================================================
+% BIBLIOGRAPHY
+% ==============================================================================
+\bibliographystyle{plain}
+\bibliography{latex/references}
+
+% ==============================================================================
+% APPENDICES
+% ==============================================================================
+\appendix
+\input{latex/chapters/appendix_a_code.tex}
+\input{latex/chapters/appendix_b_tables.tex}
+\input{latex/chapters/appendix_c_outputs.tex}
+\input{latex/chapters/appendix_d_reproduction.tex}
+
+\end{document}

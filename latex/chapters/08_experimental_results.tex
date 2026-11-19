@@ -1,0 +1,103 @@
+\chapter{Experimental Results and Visualization}
+\label{chap:results}
+
+This chapter presents the empirical results captured from $1\,680$ search trials and $1\,080$ sorting trials, incorporating all nine publication-quality figures and structured LaTeX summary tables.
+
+\section{Mathematical Growth Functions}
+Figures \ref{fig:growth_common} and \ref{fig:growth_hierarchy} (in Chapter \ref{chap:growth}) established the theoretical curves. As shown in Table \ref{tab:growth_functions}, factorial and exponential functions diverge astronomically, whereas logarithmic and linear functions remain exceptionally well-behaved across orders of magnitude.
+
+\section{Searching Algorithms Empirical Results}
+Table \ref{tab:search_worst_summary} presents the worst-case experimental measurements for Linear Search and Binary Search when the target key is absent from the sequence.
+
+\input{latex/tables/search_worst_summary_table.tex}
+
+\subsection{Comparison of Searching Operation Counts}
+Figure \ref{fig:search_ops} illustrates key comparisons across input sizes and target locations.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{latex/figures/figure3_search_operation_counts.pdf}
+    \caption{Figure 3: Linear Search vs. Binary Search — Operation Counts (Rosen §3.3).}
+    \label{fig:search_ops}
+\end{figure}
+
+Notice in the left linear plot of Figure \ref{fig:search_ops} that Linear Search comparisons grow on a steep line $T(n) = n$, reaching $100\,000$ comparisons at $n = 100\,000$. In stark contrast, Binary Search comparisons appear as a flat line hugging the horizontal axis, reaching only $34$ comparisons at $n = 100\,000$. In the right log-log plot, the power-law slope of Linear Search is $1.0$, while Binary Search exhibits logarithmic scaling.
+
+\subsection{Comparison of Searching Execution Times}
+Figure \ref{fig:search_times} depicts median execution times with error bars denoting $\pm 1$ standard deviation.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.88\textwidth]{latex/figures/figure4_search_execution_times.pdf}
+    \caption{Figure 4: Linear Search vs. Binary Search — Execution Times on Log-Log Scale.}
+    \label{fig:search_times}
+\end{figure}
+
+At $n = 100\,000$ (missing target), Linear Search requires a median duration of $3\,820.0\,\mu\text{s}$ ($3.82\text{ ms}$), while Binary Search requires only $1.96\,\mu\text{s}$—an empirical speedup of $\approx 1\,946\times$.
+
+\section{Sorting Algorithms Empirical Results}
+Table \ref{tab:sorting_random_summary} presents the empirical measurements for Bubble Sort and Insertion Sort operating on random permutations of distinct integers.
+
+\input{latex/tables/sorting_random_summary_table.tex}
+
+\subsection{Sorting Operation Counts: Comparisons and Data Movements}
+Figure \ref{fig:sorting_ops} contrasts element comparisons and data movement operations (swaps versus right shifts).
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{latex/figures/figure5_sorting_operation_counts.pdf}
+    \caption{Figure 5: Bubble Sort vs. Insertion Sort — Operation Counts on Random Permutations.}
+    \label{fig:sorting_ops}
+\end{figure}
+
+In Figure \ref{fig:sorting_ops} (left), Bubble Sort executes exactly $\frac{n(n-1)}{2}$ comparisons ($4\,498\,500$ at $n=3\,000$). Insertion Sort requires approximately half as many comparisons on random data ($2\,299\,685$). In Figure \ref{fig:sorting_ops} (right), Bubble Sort swaps and Insertion Sort right shifts are strictly equal ($2\,296\,691$), verifying the Inversion Equivalence Theorem.
+
+\subsection{Sorting Execution Times}
+Figure \ref{fig:sorting_times} presents execution times across linear and log-log scales.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{latex/figures/figure6_sorting_execution_times.pdf}
+    \caption{Figure 6: Bubble Sort vs. Insertion Sort — Execution Times (Linear and Log-Log).}
+    \label{fig:sorting_times}
+\end{figure}
+
+On random data at $n = 3\,000$, Insertion Sort completes in $183.12\text{ ms}$ compared to Bubble Sort's $405.59\text{ ms}$, delivering a $2.2\times$ runtime advantage due to avoiding pairwise adjacent exchange overhead.
+
+\section{Effect of Input Arrangement}
+
+\subsection{Insertion Sort Topology Sensitivity}
+Figure \ref{fig:insertion_arrangements} demonstrates Insertion Sort's dramatic sensitivity to input ordering.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{latex/figures/figure7_insertion_sort_arrangements.pdf}
+    \caption{Figure 7: Insertion Sort Across Sorted, Random, and Reverse-Sorted Topologies.}
+    \label{fig:insertion_arrangements}
+\end{figure}
+
+On pre-sorted data ($n = 3\,000$), Insertion Sort requires only $n - 1 = 2\,999$ comparisons and $0$ shifts, executing in \textbf{$0.32\text{ ms}$} ($\Theta(n)$ linear time). On reverse-sorted input, it requires $4\,498\,500$ comparisons and shifts, executing in $371.45\text{ ms}$ ($\Theta(n^2)$ quadratic time).
+
+\subsection{Bubble Sort Comparison Invariance}
+Figure \ref{fig:bubble_arrangements} contrasts Bubble Sort's fixed-pass comparison invariance against its dynamic swap count.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{latex/figures/figure8_bubble_sort_arrangements.pdf}
+    \caption{Figure 8: Bubble Sort Invariant Comparisons vs. Dynamic Swaps Across Topologies.}
+    \label{fig:bubble_arrangements}
+\end{figure}
+
+Element comparisons are strictly invariant across sorted, random, and reverse inputs: exactly $n(n-1)/2$. Meanwhile, swaps vary from $0$ (sorted) to $n(n-1)/4$ (random) to $n(n-1)/2$ (reverse).
+
+\section{Theoretical vs. Experimental Overlay}
+Figure \ref{fig:theoretical_overlay} directly overlays the closed-form theoretical equations onto empirical measurements.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{latex/figures/figure9_theoretical_vs_experimental.pdf}
+    \caption{Figure 9: Mathematical Formulas vs. Empirical Telemetry Overlay (Rosen §3.3).}
+    \label{fig:theoretical_overlay}
+\end{figure}
+
+In all four subplots, empirical markers align exactly with theoretical curves with \textbf{0.00\% discrepancy}.

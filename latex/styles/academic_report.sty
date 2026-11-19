@@ -1,0 +1,96 @@
+% ==============================================================================
+% ACADEMIC REPORT STYLING PACKAGE
+% ==============================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{latex/styles/academic_report}[2026/11/19 Academic Report Package]
+
+% Page Geometry & Margins
+\RequirePackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm]{geometry}
+
+% Typography & Mathematics
+\RequirePackage{amsmath, amssymb, amsthm}
+\RequirePackage{mathptmx} % Clean Times Roman typography
+\RequirePackage{setspace}
+\onehalfspacing
+
+% Colors
+\RequirePackage{xcolor}
+\definecolor{primaryblue}{RGB}{0, 45, 98}
+\definecolor{secondarynavy}{RGB}{24, 76, 120}
+\definecolor{darkgray}{RGB}{50, 50, 50}
+\definecolor{lightgray}{RGB}{245, 245, 245}
+\definecolor{codebackground}{RGB}{248, 249, 250}
+\definecolor{codegreen}{RGB}{34, 139, 34}
+\definecolor{codegray}{RGB}{128, 128, 128}
+\definecolor{codepurple}{RGB}{148, 0, 211}
+
+% Graphics & Tables
+\RequirePackage{graphicx}
+\graphicspath{{latex/figures/}{figures/}}
+\RequirePackage{booktabs}
+\RequirePackage{tabularx}
+\RequirePackage{longtable}
+\RequirePackage{caption}
+\RequirePackage{subcaption}
+\RequirePackage{float}
+
+% Running Headers & Footers
+\RequirePackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{darkgray}\DocShortTitle}
+\fancyhead[R]{\small\color{darkgray}\leftmark}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.0pt}
+
+% Code Listings Configuration
+\RequirePackage{listings}
+\lstset{
+    language=Python,
+    backgroundcolor=\color{codebackground},
+    basicstyle=\ttfamily\footnotesize\color{black},
+    keywordstyle=\bfseries\color{primaryblue},
+    stringstyle=\color{codegreen},
+    commentstyle=\itshape\color{codegray},
+    numbers=left,
+    numberstyle=\tiny\color{codegray},
+    stepnumber=1,
+    numbersep=8pt,
+    tabsize=4,
+    showspaces=false,
+    showstringspaces=false,
+    breaklines=true,
+    breakatwhitespace=true,
+    frame=single,
+    rulecolor=\color{lightgray},
+    captionpos=b
+}
+
+% Theorems, Definitions, Proofs Environments
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{example}{Example}[chapter]
+\newtheorem{property}{Property}[chapter]
+
+% Hyperlinks
+\RequirePackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primaryblue,
+    citecolor=secondarynavy,
+    urlcolor=primaryblue,
+    bookmarksnumbered=true,
+    pdfstartview={FitH}
+}
+
+% Section Titles Styling
+\RequirePackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{primaryblue}}{\chaptertitlename\ \thechapter}{18pt}{\Huge}
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{secondarynavy}}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{darkgray}}{\thesubsection}{1em}{}

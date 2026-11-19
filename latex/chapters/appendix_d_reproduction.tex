@@ -1,0 +1,56 @@
+\chapter{Instructions to Reproduce the Experiments}
+\label{app:reproduction}
+
+To ensure complete scientific reproducibility, all project benchmarks, figures, notebooks, and verification tests can be executed via command-line scripts from the repository root.
+
+\section{Prerequisites and Dependencies}
+\begin{enumerate}
+    \item Python 3.10 or higher (tested on Python 3.14.7).
+    \item Required libraries specified in \texttt{requirements.txt}:
+\begin{verbatim}
+pip install numpy pandas matplotlib scipy jupyter nbformat ipykernel nbclient pytest
+\end{verbatim}
+\end{enumerate}
+
+\section{Step-by-Step Execution Workflow}
+
+\subsection{1. Run Automated Correctness Tests}
+Execute the pytest test suite to verify algorithm implementations, edge-case invariants, and statistical functions:
+\begin{verbatim}
+python -m pytest -v
+\end{verbatim}
+
+\subsection{2. Run Full Empirical Benchmarking Suite}
+Execute the headless automated experiment runner to collect raw and processed datasets:
+\begin{verbatim}
+python scripts/run_benchmarks.py --seed 42 --reps 30
+\end{verbatim}
+
+\subsection{3. Generate All Publication Figures}
+Generate all nine publication figures simultaneously in vector PDF and 300 DPI raster PNG formats:
+\begin{verbatim}
+python scripts/generate_figures.py
+\end{verbatim}
+
+\subsection{4. Build and Execute Jupyter Research Notebook}
+Construct and execute the comprehensive interactive research notebook with all outputs and figures preserved:
+\begin{verbatim}
+python scripts/build_notebook.py
+\end{verbatim}
+
+\subsection{5. Compile LaTeX Academic Report}
+Prepare LaTeX tables, verify assets, and compile the academic monograph:
+\begin{verbatim}
+python scripts/build_report.py
+\end{verbatim}
+
+\section{Local TeX Engine Setup (MiKTeX / TeX Live)}
+If compiling the LaTeX source locally:
+\begin{itemize}
+    \item \textbf{Windows}: Install MiKTeX from \url{https://miktex.org/download}. Ensure that "Always install missing packages on-the-fly" is selected.
+    \item \textbf{Linux (Ubuntu/Debian)}:
+\begin{verbatim}
+sudo apt-get install texlive-latex-extra texlive-fonts-recommended latexmk
+\end{verbatim}
+    \item \textbf{Overleaf}: Upload the project directory or the Overleaf bundle zip \texttt{Algorithm\_Explorer\_Report\_Overleaf.zip} directly to Overleaf (LaTeX engine set to pdfLaTeX or XeLaTeX).
+\end{itemize}

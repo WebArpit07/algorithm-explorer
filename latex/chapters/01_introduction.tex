@@ -1,0 +1,64 @@
+\chapter{Introduction}
+\label{chap:introduction}
+
+\section{Background}
+The analytical evaluation of algorithms lies at the absolute nexus of theoretical discrete mathematics and empirical computer science. Computation, in its formal essence, is the systematic manipulation of discrete symbolic structures under deterministic transformation rules. As software applications permeate high-throughput communications, real-time control systems, cryptographic protocols, and distributed data processing, predicting algorithmic execution demands mathematically—prior to implementation—becomes paramount.
+
+Kenneth H. Rosen's seminal treatise, \emph{Discrete Mathematics and Its Applications} (8th Edition) \cite{rosen2019discrete}, dedicates Chapter 3 to establishing the mathematical foundations of algorithmic problem-solving. This monograph bridges deductive discrete proofs with inductive experimental observations.
+
+\section{Introduction to Algorithms}
+Informally, an algorithm is a computational recipe: a step-by-step prescription for transforming allowable input values into unambiguous output values. Formally, an algorithm represents a deterministic state-transition function operating over discrete domains. While programming languages and processor hardware fluctuate over decades, the underlying discrete mathematics governing algorithmic growth classes remains immutable.
+
+\section{Importance of Algorithm Analysis}
+Algorithm analysis allows computer scientists to classify computational procedures independently of specific compiler optimizations, central processing unit (CPU) clock frequencies, or memory bus bandwidths. Through asymptotic bounding:
+\begin{enumerate}
+    \item We can predict the tractability of an algorithm as problem size scales towards millions or billions of items.
+    \item We establish mathematical proofs of optimality, determining whether an algorithm achieves the theoretical lower bound for a given problem class.
+    \item We identify bottlenecks, isolating whether an inefficiency stems from nested comparison loops ($\mathcal{O}(n^2)$) or physical memory movement.
+\end{enumerate}
+
+\section{Problem Statement}
+In academic computer science education, students frequently encounter a conceptual disconnect between theoretical asymptotic bounds (such as $\mathcal{O}(n^2)$ or $\Theta(\log n)$) and empirical software execution times. Hand-wavy explanations often assert that hardware speed eliminates the need for algorithmic efficiency, or confuse asymptotic upper bounds ($\mathcal{O}$) with exact operational behavior. 
+
+This project addresses this pedagogical gap by providing an exhaustive analytical and empirical investigation of four canonical algorithms:
+\begin{enumerate}
+    \item \textbf{Linear Search} (Rosen §3.1, Algorithm 2)
+    \item \textbf{Binary Search} (Rosen §3.1, Algorithm 3)
+    \item \textbf{Bubble Sort} (Rosen §3.1, Algorithm 4)
+    \item \textbf{Insertion Sort} (Rosen §3.1, Algorithm 5)
+\end{enumerate}
+
+\section{Project Objectives}
+The primary objectives of this study are:
+\begin{enumerate}
+    \item \textbf{Formal Mathematical Modeling}: Derive exact closed-form operation-count formulas $T(n)$ for best, worst, and average cases under stated discrete assumptions.
+    \item \textbf{Empirical Telemetry Isolation}: Build an experimental benchmarking harness that measures physical execution duration with high-resolution timers ($\pm 100\text{ ns}$) while capturing exact comparison, swap, and shift counters without telemetry contamination.
+    \item \textbf{Hypothesis Testing \& Verification}: Validate whether empirical counters match theoretical formulas with zero deviation.
+    \item \textbf{Topological Sensitivity Analysis}: Investigate how pre-existing data orderings (sorted, random, reverse-sorted) influence comparison invariance versus data movement.
+\end{enumerate}
+
+\section{Scope of the Study}
+This investigation is strictly grounded in Chapter 3 of Rosen \cite{rosen2019discrete}, specifically Sections 3.1, 3.2, and 3.3. Searching is analyzed across input sizes $n \in [100, 100\,000]$ and four target topologies (\texttt{first}, \texttt{middle}, \texttt{last}, \texttt{missing}). Sorting is analyzed across input sizes $n \in [100, 3\,000]$ across three fundamental permutations (\texttt{sorted}, \texttt{random}, \texttt{reverse}).
+
+\section{Research Questions}
+This monograph systematically answers four foundational questions:
+\begin{itemize}
+    \item \textbf{RQ1}: Do discrete mathematical operation-count formulas accurately predict empirical counter values across diverse input scales?
+    \item \textbf{RQ2}: At what input size threshold $n^*$ does the asymptotic advantage of logarithmic bisection ($\Theta(\log n)$) conclusively eclipse linear scanning ($\Theta(n)$)?
+    \item \textbf{RQ3}: How do adjacent element exchanges in Bubble Sort relate mathematically to element displacements in Insertion Sort across identical permutations?
+    \item \textbf{RQ4}: Why do operation counts remain identical across computing platforms while execution durations exhibit constant-factor micro-architectural variance?
+\end{itemize}
+
+\section{Organization of the Report}
+The remainder of this report is organized as follows:
+\begin{itemize}
+    \item \textbf{Chapter \ref{chap:fundamentals}}: Fundamentals of algorithms, essential characteristics, and taxonomy.
+    \item \textbf{Chapter \ref{chap:growth}}: Mathematical growth of functions and the canonical complexity hierarchy.
+    \item \textbf{Chapter \ref{chap:asymptotic}}: Asymptotic notations ($\mathcal{O}, \Omega, \Theta$) with formal witness pairs $(C, k)$.
+    \item \textbf{Chapter \ref{chap:complexity}}: Time/space complexity, case analysis, and operation-counting methodology.
+    \item \textbf{Chapter \ref{chap:analytical_study}}: In-depth study of the four algorithms with traces, pseudocode, and source listings.
+    \item \textbf{Chapter \ref{chap:methodology}}: Experimental design, microbenchmarking harness, and statistical replication.
+    \item \textbf{Chapter \ref{chap:results}}: Empirical results, statistical tables, and publication graph analysis.
+    \item \textbf{Chapter \ref{chap:comparative}}: Comparative synthesis, trade-offs, and practical systems implications.
+    \item \textbf{Chapter \ref{chap:conclusion}}: Summary of research outcomes, conclusions, and future scope.
+\end{itemize}

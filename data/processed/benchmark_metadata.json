@@ -1,0 +1,33 @@
+{
+  "benchmark_date_utc": "2026-11-18T18:50:34Z",
+  "random_seed": 42,
+  "python_version": "3.14.7 (tags/v3.14.7:823f032, Aug  5 2026, 10:51:32) [MSC v.1944 64 bit (AMD64)]",
+  "python_implementation": "CPython",
+  "operating_system": "Windows",
+  "os_release": "11",
+  "os_version": "10.0.26300",
+  "machine_architecture": "AMD64",
+  "processor": "AMD64 Family 23 Model 96 Stepping 1, AuthenticAMD",
+  "cpu_count_logical": 12,
+  "timing_timer": "time.perf_counter_ns",
+  "timing_resolution_ns": 100.0,
+  "benchmark_total_elapsed_sec": 87.11,
+  "search_sizes": [
+    100,
+    500,
+    1000,
+    5000,
+    10000,
+    50000,
+    100000
+  ],
+  "sorting_sizes": [
+    100,
+    250,
+    500,
+    1000,
+    2000,
+    3000
+  ],
+  "repetitions_per_case": 30
+}

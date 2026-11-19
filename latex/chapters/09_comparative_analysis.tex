@@ -1,0 +1,89 @@
+\chapter{Comparative Analysis and Discussion}
+\label{chap:comparative}
+
+\section{Linear Search vs. Binary Search}
+The comparative analysis of Linear Search and Binary Search highlights a fundamental trade-off in computer science: \textbf{unconditional flexibility versus conditional logarithmic acceleration}.
+
+\subsection{Algorithmic Trade-offs}
+\begin{itemize}
+    \item \textbf{Precondition Requirements}: Linear Search operates without preconditions on input ordering. Binary Search strictly requires a pre-sorted sequence ($\mathcal{O}(n)$ verification cost or $\mathcal{O}(n \log n)$ pre-sorting overhead).
+    \item \textbf{Asymptotic Scaling}: As established empirically, at $n = 100\,000$, Binary Search delivers a $\approx 1\,946\times$ speedup over Linear Search.
+    \item \textbf{The Break-Even Threshold}: If an unsorted list of $n$ elements is to be searched $q$ times, pre-sorting with an optimal $\mathcal{O}(n \log n)$ algorithm followed by $q$ binary searches is computationally superior to repeated linear scans whenever:
+    $$c_{\text{sort}} \cdot n \log_2 n + q \cdot c_{\text{bin}} \cdot \log_2 n < q \cdot c_{\text{lin}} \cdot n$$
+    Solving for $q$, pre-sorting is justified whenever the query volume satisfies:
+    $$q > \frac{c_{\text{sort}} \cdot n \log_2 n}{c_{\text{lin}} \cdot n - c_{\text{bin}} \cdot \log_2 n} \approx \frac{c_{\text{sort}}}{c_{\text{lin}}} \log_2 n$$
+\end{itemize}
+
+\section{Bubble Sort vs. Insertion Sort}
+While both Bubble Sort and Insertion Sort belong to the quadratic complexity class $\mathcal{O}(n^2)$ in the worst case, their internal mechanical structures diverge significantly:
+
+\subsection{Mechanical Differences}
+\begin{itemize}
+    \item \textbf{Data Movements}: Bubble Sort performs three memory read/write operations per swap register exchange ($a_j \leftrightarrow a_{j+1}$). In contrast, Insertion Sort uses single-register rightward shifts ($a_{i+1} = a_i$), placing the key once upon loop termination.
+    \item \textbf{Comparison Invariance}: Fixed-pass Bubble Sort always executes $\frac{n(n-1)}{2}$ comparisons regardless of initial ordering. Insertion Sort evaluates condition $a_i > \text{key}$ dynamically, halting inner loops as soon as the key's position is resolved.
+    \item \textbf{Pre-Sorted Performance}: On pre-sorted arrays ($n = 3\,000$), Insertion Sort completes in $0.32\text{ ms}$ ($\Theta(n)$), outperforming Bubble Sort ($246.25\text{ ms}$) by a factor of \textbf{$769\times$}.
+\end{itemize}
+
+\section{Effect of Input Size and Arrangement}
+Input size $n$ establishes the macro-asymptotic trajectory. However, for algorithms with divergent best- and worst-case bounds (such as Insertion Sort), input topology exerts a massive constant and asymptotic influence:
+$$\text{Sorted: } \Theta(n) \quad \longleftrightarrow \quad \text{Random: } \Theta(n^2) \quad \longleftrightarrow \quad \text{Reverse: } \Theta(n^2)$$
+
+\section{Comparison of Time and Auxiliary Space Complexity}
+Table \ref{tab:complexity_comparison_matrix} provides a comprehensive synthesis of all four algorithms.
+
+\begin{table}[htbp]
+\centering
+\caption{Comprehensive Theoretical and Empirical Complexity Matrix}
+\label{tab:complexity_comparison_matrix}
+\small
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcccccc}
+\toprule
+\textbf{Algorithm} & \textbf{Best Case} & \textbf{Average Case} & \textbf{Worst Case} & \textbf{Aux Space} & \textbf{Precondition} & \textbf{Stability} \\
+\midrule
+Linear Search & $\Theta(1)$ & $\Theta(n)$ & $\Theta(n)$ & $\Theta(1)$ & None & N/A \\
+Binary Search & $\Theta(1)$ & $\Theta(\log n)$ & $\Theta(\log n)$ & $\Theta(1)$ & Sorted Input & N/A \\
+Bubble Sort (Fixed) & $\Theta(n^2)$ & $\Theta(n^2)$ & $\Theta(n^2)$ & $\Theta(1)$ & None & Stable \\
+Insertion Sort & $\Theta(n)$ & $\Theta(n^2)$ & $\Theta(n^2)$ & $\Theta(1)$ & None & Stable \\
+\bottomrule
+\end{tabular*}
+\end{table}
+
+\section{Theoretical Growth vs. Measured Runtime}
+Empirical runtimes exhibit minor non-linearities due to modern micro-architectural factors:
+\begin{itemize}
+    \item \textbf{Memory Hierarchy}: At small $n$ ($n \le 1\,000$), entire arrays fit inside the CPU's high-speed L1 data cache ($32\text{ KB}$), achieving sub-nanosecond access. At $n = 100\,000$, arrays spill into main RAM, increasing memory latency.
+    \item \textbf{Branch Prediction}: In Insertion Sort on sorted inputs, branch predictors accurately anticipate that $a_i > \text{key}$ is False, eliminating pipeline flushes.
+\end{itemize}
+
+\section{Limitations of Experimental Analysis}
+\begin{itemize}
+    \item Physical runtimes cannot prove an asymptotic lower bound $\Omega(g(n))$, because an inefficient implementation could artificially inflate runtimes.
+    \item Measurements are specific to CPython 3.14.7; alternative execution engines (such as PyPy with JIT compilation or compiled C extensions) alter constant factors.
+\end{itemize}
+
+\section{Practical Implications \& Real-World Applications}
+The adaptive linear behavior $\Theta(n)$ of Insertion Sort on nearly sorted sequences explains why it is universally adopted as the base-case sort in production hybrid algorithms:
+\begin{itemize}
+    \item \textbf{Timsort}: The default sorting algorithm in Python (\texttt{list.sort()}) and Java (\texttt{Arrays.sort()}), which uses Merge Sort at macro-scale and switches to Insertion Sort for partitions of size $n < 64$ \cite{peters2002timsort}.
+    \item \textbf{Introsort}: The standard C++ STL sorting algorithm, which switches from Quick Sort to Insertion Sort when partitions become small.
+\end{itemize}
+
+\section{Interactive Algorithm Explorer Dashboard}
+\label{sec:dashboard_link}
+As a supplementary web-based enhancement to this monograph, we developed the \textbf{\DocDashboardTitle{}}, delivering an interactive, browser-based demonstration of the four canonical algorithms and their computational complexity characteristics. Grounded in Chapter~3 of Kenneth H. Rosen's \emph{Discrete Mathematics and Its Applications} (8th Edition), the dashboard allows students and researchers to interactively explore algorithmic state transitions, step-by-step executions, and mathematical growth curves.
+
+\begin{itemize}
+    \item \textbf{Academic Description}: \emph{Interactive Algorithm Explorer Dashboard --- a supplementary web-based demonstration of the four algorithms and their complexity characteristics.}
+    \item \textbf{Repository \& Deployment Target}: \url{\DocDashboardURL}
+    \item \textbf{Deployment Status}: \texttt{\DocDashboardStatus}
+    \item \textbf{Local Web Serving}: Launch via Python's built-in HTTP server: \texttt{python -m http.server 8000} and browse to \texttt{http://localhost:8000/dashboard/}, or open \texttt{dashboard/index.html} directly.
+\end{itemize}
+
+The dashboard is engineered with zero external framework dependencies using HTML5, CSS3, vanilla JavaScript (ES2022), and custom SVG vector rendering. Key interactive components include:
+\begin{enumerate}
+    \item \textbf{Interactive Searching Lab}: Step-by-step probing for Linear Search ($\Theta(n)$) and Binary Search ($\Theta(\log n)$), featuring automatic precondition validation (enforcing sorted order for logarithmic search) and real-time operation counters.
+    \item \textbf{Interactive Sorting Lab}: Real-time animated vertical bar charts contrasting Bubble Sort (Rosen fixed-pass formulation with strictly invariant $n(n-1)/2$ comparisons) against Insertion Sort (adaptive linear behavior $\Theta(n)$ on sorted sequences).
+    \item \textbf{Head-to-Head Comparison Lab}: Live client-side simulation providing empirical verification of the Inversion Equivalence Theorem ($\text{Swaps} \equiv \text{Right Shifts} \equiv \text{Inversions}$).
+    \item \textbf{Growth of Functions Lab}: Dynamic SVG visualization of the seven canonical asymptotic complexity classes ($1, \log_2 n, n, n \log_2 n, n^2, 2^n, n!$) with interactive linear and logarithmic ($\log_{10}$) Y-axis scaling.
+    \item \textbf{Integrated Python 3.14.7 Microbenchmarks}: An empirical research panel displaying verified M3 benchmark telemetry, strictly distinguishing offline Python experimental measurements from live browser simulations.
+\end{enumerate}

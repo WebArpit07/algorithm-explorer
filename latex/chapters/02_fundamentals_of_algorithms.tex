@@ -1,0 +1,72 @@
+\chapter{Fundamentals of Algorithms}
+\label{chap:fundamentals}
+
+\section{Definition of an Algorithm}
+In mathematical computer science, an algorithm is more than an arbitrary set of programming instructions. Grounded in formal discrete mathematics (Rosen §3.1) \cite{rosen2019discrete}:
+
+\begin{definition}[Algorithm]
+An \textbf{algorithm} is a finite sequence of precise instructions for performing a computation or for solving a problem.
+\end{definition}
+
+An algorithm accepts an input from a designated discrete domain, undergoes a finite sequence of unambiguous state transitions, and halts, producing an output in a specified target domain.
+
+\section{Characteristics of Algorithms}
+To distinguish a legitimate mathematical algorithm from an incomplete procedural heuristic or an infinite computational loop, Rosen delineates seven essential properties:
+
+\subsection{Input and Output}
+\begin{property}[Input and Output]
+An algorithm must possess a specified set of input values taken from a valid domain. For every valid input configuration, the algorithm must yield an unambiguous set of output values representing the problem solution.
+\end{property}
+
+\subsection{Definiteness}
+\begin{property}[Definiteness]
+Every individual instruction or state transition within the algorithm must be defined precisely and unambiguously. There can be no room for subjective interpretation by the executing agent.
+\end{property}
+
+\subsection{Correctness}
+\begin{property}[Correctness]
+An algorithm must be mathematically correct: it must produce the proper, expected output values for every allowable input configuration. Correctness is established through deductive logic, loop invariants, and mathematical induction rather than casual testing.
+\end{property}
+
+\subsection{Finiteness}
+\begin{property}[Finiteness]
+An algorithm must terminate after a finite number of discrete operational steps for any valid input instance of finite size $n$. Procedures that enter non-terminating infinite loops fail this criterion.
+\end{property}
+
+\subsection{Effectiveness}
+\begin{property}[Effectiveness]
+Every operational step within the algorithm must be basic enough to be executed accurately and in a finite interval of time by a human or mechanical computing machine.
+\end{property}
+
+\subsection{Generality}
+\begin{property}[Generality]
+The procedure must apply generally to all problems belonging to the intended problem class, rather than functioning merely as an ad-hoc trick tailored for a specific, isolated dataset.
+\end{property}
+
+\section{Representation of Algorithms}
+The specification of an algorithm can be expressed at various levels of abstraction:
+\begin{enumerate}
+    \item \textbf{Natural Language}: Expressive and intuitive for conceptual communication, but inherently vulnerable to linguistic ambiguities, syntactic vagueness, and unstated assumptions.
+    \item \textbf{Structured Pseudocode}: A high-level formal notation balancing natural language readability with rigorous mathematical control constructs (\texttt{while}, \texttt{for}, \texttt{if-then-else}). It emphasizes logic over machine-specific memory allocation.
+    \item \textbf{Flowcharts}: Graphical directed graphs where nodes denote operational tasks or conditional decision gates, and edges represent deterministic control transitions.
+    \item \textbf{High-Level Programming Language (Python)}: Fully concrete, machine-executable source code enforcing precise type signatures, index boundary checks, and concrete runtime semantics.
+\end{enumerate}
+
+\section{Types and Categories of Algorithms}
+In discrete mathematics, computational problems are categorized by their structural objectives, while algorithms are classified by their design paradigm:
+
+\subsection{Problem Categories}
+\begin{itemize}
+    \item \textbf{Searching Problems}: Given a discrete collection $S$ and target item $x$, determine an index location $i$ where $S[i] = x$, or establish that $x \notin S$.
+    \item \textbf{Sorting Problems}: Given a sequence of $n$ mutually comparable elements $(a_1, a_2, \dots, a_n)$, generate a permutation $(a'_1, a'_2, \dots, a'_n)$ such that $a'_1 \le a'_2 \le \dots \le a'_n$.
+    \item \textbf{String Matching Problems}: Locate all exact occurrences of a pattern string $P$ within a text string $T$.
+    \item \textbf{Optimization Problems}: Identify a configuration within a discrete feasibility space that minimizes or maximizes an objective cost function.
+\end{itemize}
+
+\subsection{Algorithm Design Paradigms}
+\begin{itemize}
+    \item \textbf{Brute-Force \& Exhaustive Search}: Evaluates all candidates sequentially or combinatorially (e.g., Linear Search).
+    \item \textbf{Divide-and-Conquer}: Recursively bisects the problem space into smaller independent subproblems, solves each subproblem, and combines solutions (e.g., Binary Search).
+    \item \textbf{Incremental \& Iterative Construction}: Expands a verified partial solution one element at a time (e.g., Insertion Sort).
+    \item \textbf{Greedy Approaches}: Makes locally optimal choices at each decision stage in hopes of finding a global optimum.
+\end{itemize}

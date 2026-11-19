@@ -1,0 +1,24 @@
+\begin{table}[htbp]
+\centering
+\caption{Sorting Algorithms Empirical Telemetry on Random Permutations}
+\label{tab:sorting_random_summary}
+\small
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrrrr}
+\toprule
+\textbf{Algorithm} & $n$ & \textbf{Comparisons} & \textbf{Swaps / Shifts} & \textbf{Median (ms)} & \textbf{Mean (ms)} & \textbf{Std Dev (ms)} \\
+\midrule
+Bubble Sort & 100 & 4,950 & 2,502 & 0.38 & 0.38 & 0.01 \\
+Insertion Sort & 100 & 2,597 & 2,502 & 0.19 & 0.19 & 0.01 \\
+Bubble Sort & 250 & 31,125 & 15,618 & 2.29 & 2.29 & 0.02 \\
+Insertion Sort & 250 & 15,863 & 15,618 & 1.13 & 1.13 & 0.02 \\
+Bubble Sort & 500 & 124,750 & 61,188 & 9.57 & 9.58 & 0.13 \\
+Insertion Sort & 500 & 61,682 & 61,188 & 4.76 & 4.74 & 0.07 \\
+Bubble Sort & 1000 & 499,500 & 248,445 & 42.78 & 42.72 & 0.46 \\
+Insertion Sort & 1000 & 249,438 & 248,445 & 20.23 & 20.30 & 0.33 \\
+Bubble Sort & 2000 & 1,999,000 & 1,026,195 & 176.56 & 177.16 & 2.41 \\
+Insertion Sort & 2000 & 1,028,183 & 1,026,195 & 85.42 & 86.30 & 3.51 \\
+Bubble Sort & 3000 & 4,498,500 & 2,296,691 & 405.59 & 406.85 & 6.62 \\
+Insertion Sort & 3000 & 2,299,685 & 2,296,691 & 191.65 & 191.80 & 3.41 \\
+\bottomrule
+\end{tabular*}
+\end{table}

@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "algorithm-explorer"
+version = "1.0.0"
+description = "An Analytical and Experimental Study of Algorithms, Growth of Functions and Computational Complexity (Rosen Ch. 3)"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    { name = "Academic Research Team" }
+]
+dependencies = [
+    "numpy>=2.0.0",
+    "pandas>=2.2.0",
+    "scipy>=1.13.0",
+    "matplotlib>=3.8.0",
+    "seaborn>=0.13.0",
+    "jupyter>=1.0.0",
+    "notebook>=7.1.0",
+    "ipykernel>=6.29.0",
+    "nbformat>=5.10.0",
+    "rich>=13.7.0",
+    "tabulate>=0.9.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0"
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]

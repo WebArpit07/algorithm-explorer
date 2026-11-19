@@ -1,0 +1,23 @@
+\begin{table}[htbp]
+\centering
+\caption{Numerical Evaluation of Standard Growth Functions (Rosen §3.2)}
+\label{tab:growth_functions}
+\small
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}rrrrrrrr}
+\toprule
+$n$ & $\mathcal{O}(1)$ & $\mathcal{O}(\log_2 n)$ & $\mathcal{O}(n)$ & $\mathcal{O}(n \log_2 n)$ & $\mathcal{O}(n^2)$ & $\mathcal{O}(2^n)$ & $\mathcal{O}(n!)$ \\
+\midrule
+1 & 1 & 0.00 & 1 & 0.00 & 1 & 2 & 1 \\
+2 & 1 & 1.00 & 2 & 2.00 & 4 & 4 & 2 \\
+4 & 1 & 2.00 & 4 & 8.00 & 16 & 16 & 24 \\
+8 & 1 & 3.00 & 8 & 24.00 & 64 & 256 & 40320 \\
+16 & 1 & 4.00 & 16 & 64.00 & 256 & 65536 & 2.09e+13 \\
+32 & 1 & 5.00 & 32 & 160.00 & 1024 & 4.29e+09 & inf \\
+64 & 1 & 6.00 & 64 & 384.00 & 4096 & 1.84e+19 & inf \\
+128 & 1 & 7.00 & 128 & 896.00 & 16384 & inf & inf \\
+256 & 1 & 8.00 & 256 & 2048.00 & 65536 & inf & inf \\
+512 & 1 & 9.00 & 512 & 4608.00 & 262144 & inf & inf \\
+1024 & 1 & 10.00 & 1024 & 10240.00 & 1048576 & inf & inf \\
+\bottomrule
+\end{tabular*}
+\end{table}

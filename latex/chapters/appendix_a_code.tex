@@ -1,0 +1,229 @@
+\chapter{Complete Python Implementation Source Code}
+\label{app:code}
+
+This appendix provides the full, unabridged source code for the algorithms and telemetry data structures.
+
+\section{Search Module (\texttt{src/algorithms/search.py})}
+\begin{lstlisting}[language=Python, caption={Full Source Code of search.py}]
+"""Search algorithms module.
+
+Implementations of Linear Search and Binary Search in accordance with
+Kenneth H. Rosen, Discrete Mathematics and Its Applications (8th Edition),
+Chapter 3 (Sections 3.1, 3.2, and 3.3).
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Any, Sequence, TypeVar
+
+T = TypeVar("T")
+
+
+@dataclass(frozen=True, slots=True)
+class SearchMetrics:
+    key_comparisons: int
+    equality_comparisons: int
+    ordering_comparisons: int = 0
+    loop_evaluations: int = 0
+
+
+def linear_search(seq: Sequence[Any], target: Any) -> int:
+    for index, item in enumerate(seq):
+        if item == target:
+            return index
+    return -1
+
+
+def linear_search_instrumented(
+    seq: Sequence[Any], target: Any
+) -> tuple[int, SearchMetrics]:
+    n = len(seq)
+    key_comparisons = 0
+    equality_comparisons = 0
+    loop_evaluations = 0
+
+    for index in range(n):
+        loop_evaluations += 1
+        equality_comparisons += 1
+        key_comparisons += 1
+        if seq[index] == target:
+            return index, SearchMetrics(
+                key_comparisons=key_comparisons,
+                equality_comparisons=equality_comparisons,
+                ordering_comparisons=0,
+                loop_evaluations=loop_evaluations,
+            )
+
+    loop_evaluations += 1
+    return -1, SearchMetrics(
+        key_comparisons=key_comparisons,
+        equality_comparisons=equality_comparisons,
+        ordering_comparisons=0,
+        loop_evaluations=loop_evaluations,
+    )
+
+
+def binary_search(
+    seq: Sequence[Any], target: Any, *, check_sorted: bool = False
+) -> int:
+    if check_sorted:
+        for i in range(len(seq) - 1):
+            if seq[i] > seq[i + 1]:
+                raise ValueError("Precondition violated: sequence must be sorted.")
+
+    low = 0
+    high = len(seq) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+        mid_val = seq[mid]
+        if mid_val == target:
+            return mid
+        elif mid_val < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+
+    return -1
+
+
+def binary_search_instrumented(
+    seq: Sequence[Any], target: Any, *, check_sorted: bool = False
+) -> tuple[int, SearchMetrics]:
+    if check_sorted:
+        for i in range(len(seq) - 1):
+            if seq[i] > seq[i + 1]:
+                raise ValueError("Precondition violated: sequence must be sorted.")
+
+    low = 0
+    high = len(seq) - 1
+
+    key_comparisons = 0
+    equality_comparisons = 0
+    ordering_comparisons = 0
+    loop_evaluations = 0
+
+    while True:
+        loop_evaluations += 1
+        if low > high:
+            break
+
+        mid = (low + high) // 2
+        mid_val = seq[mid]
+
+        equality_comparisons += 1
+        key_comparisons += 1
+        if mid_val == target:
+            return mid, SearchMetrics(
+                key_comparisons=key_comparisons,
+                equality_comparisons=equality_comparisons,
+                ordering_comparisons=ordering_comparisons,
+                loop_evaluations=loop_evaluations,
+            )
+
+        ordering_comparisons += 1
+        key_comparisons += 1
+        if mid_val < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+
+    return -1, SearchMetrics(
+        key_comparisons=key_comparisons,
+        equality_comparisons=equality_comparisons,
+        ordering_comparisons=ordering_comparisons,
+        loop_evaluations=loop_evaluations,
+    )
+\end{lstlisting}
+
+\section{Sorting Module (\texttt{src/algorithms/sorting.py})}
+\begin{lstlisting}[language=Python, caption={Full Source Code of sorting.py}]
+"""Sorting algorithms module.
+
+Implementations of Bubble Sort and Insertion Sort in accordance with
+Kenneth H. Rosen, Discrete Mathematics and Its Applications (8th Edition),
+Chapter 3 (Sections 3.1, 3.2, and 3.3).
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Any, MutableSequence
+
+
+@dataclass(frozen=True, slots=True)
+class SortingMetrics:
+    element_comparisons: int
+    swaps: int = 0
+    right_shifts: int = 0
+
+
+def bubble_sort(arr: MutableSequence[Any]) -> MutableSequence[Any]:
+    n = len(arr)
+    for i in range(n - 1):
+        for j in range(n - 1 - i):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+    return arr
+
+
+def bubble_sort_instrumented(
+    arr: MutableSequence[Any],
+) -> tuple[MutableSequence[Any], SortingMetrics]:
+    n = len(arr)
+    element_comparisons = 0
+    swaps = 0
+
+    for i in range(n - 1):
+        for j in range(n - 1 - i):
+            element_comparisons += 1
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swaps += 1
+
+    return arr, SortingMetrics(
+        element_comparisons=element_comparisons,
+        swaps=swaps,
+        right_shifts=0,
+    )
+
+
+def insertion_sort(arr: MutableSequence[Any]) -> MutableSequence[Any]:
+    n = len(arr)
+    for j in range(1, n):
+        key = arr[j]
+        i = j - 1
+        while i >= 0 and arr[i] > key:
+            arr[i + 1] = arr[i]
+            i -= 1
+        arr[i + 1] = key
+    return arr
+
+
+def insertion_sort_instrumented(
+    arr: MutableSequence[Any],
+) -> tuple[MutableSequence[Any], SortingMetrics]:
+    n = len(arr)
+    element_comparisons = 0
+    right_shifts = 0
+
+    for j in range(1, n):
+        key = arr[j]
+        i = j - 1
+        while i >= 0:
+            element_comparisons += 1
+            if arr[i] > key:
+                arr[i + 1] = arr[i]
+                right_shifts += 1
+                i -= 1
+            else:
+                break
+        arr[i + 1] = key
+
+    return arr, SortingMetrics(
+        element_comparisons=element_comparisons,
+        swaps=0,
+        right_shifts=right_shifts,
+    )
+\end{lstlisting}

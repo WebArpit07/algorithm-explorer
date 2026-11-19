@@ -1,0 +1,56 @@
+\chapter{Complexity of Algorithms}
+\label{chap:complexity}
+
+\section{Introduction}
+Section 3.3 of Rosen \cite{rosen2019discrete} addresses the computational complexity of algorithms. An algorithm's efficiency is evaluated in terms of the resources it consumes, categorized primarily as \textbf{time complexity} and \textbf{auxiliary space complexity}.
+
+\section{Time Complexity}
+Time complexity analyzes the number of elementary operations required to solve a problem of size $n$. In comparison-based algorithms, the predominant operations consist of:
+\begin{itemize}
+    \item \textbf{Key Comparisons}: Evaluating relational operators between elements (e.g., $a_i == x$ or $a_j > a_{j+1}$).
+    \item \textbf{Data Movements}: Exchanging adjacent elements (swaps) or shifting elements rightward in memory.
+\end{itemize}
+
+\section{Auxiliary Space Complexity}
+Auxiliary space complexity measures the additional working memory required by an algorithm, excluding the storage allocated for the input sequence itself. 
+\begin{definition}[In-Place Algorithm]
+An algorithm is said to be \textbf{in-place} if its auxiliary space requirement is $\Theta(1)$—that is, it requires only a fixed number of scalar temporary variables (such as loop indices and exchange registers) that do not scale with $n$.
+\end{definition}
+
+\section{Case Analysis Taxonomy}
+Because an algorithm's execution trajectory often depends on the specific arrangement of input data, complexity is analyzed across three distinct scenarios:
+
+\subsection{Best-Case Complexity}
+The absolute minimum number of fundamental operations executed over all allowable input instances of size $n$:
+$$T_{\text{best}}(n) = \min_{I \in \mathcal{D}_n} T(I)$$
+where $\mathcal{D}_n$ represents the set of all valid input instances of size $n$.
+
+\subsection{Worst-Case Complexity}
+The maximum number of operations executed over all valid inputs of size $n$:
+$$T_{\text{worst}}(n) = \max_{I \in \mathcal{D}_n} T(I)$$
+Worst-case analysis provides a formal mathematical guarantee: the algorithm will never exceed this bound, regardless of input pathology.
+
+\subsection{Average-Case Complexity}
+The expected number of operations under an explicitly specified probability distribution $P$ over input instances:
+$$T_{\text{avg}}(n) = \mathbb{E}[T(I)] = \sum_{I \in \mathcal{D}_n} P(I) \cdot T(I)$$
+In standard academic algorithm analysis, the default model is the \emph{uniform distribution}, where each possible input arrangement or target location is considered equally probable with probability $1 / |\mathcal{D}_n|$.
+
+\section{Operation Counting Methodology}
+In this project, we implement a rigorous dual-layer counting convention:
+\begin{enumerate}
+    \item \textbf{Search Telemetry}: We track key comparisons partitioned into:
+    \begin{itemize}
+        \item \emph{Equality Comparisons}: Tests of exact identity ($a_i == x$).
+        \item \emph{Ordering Comparisons}: Relational tests ($a_{\text{mid}} < x$).
+        \item \emph{Loop Evaluations}: Continuation checks ($\text{low} \le \text{high}$).
+    \end{itemize}
+    \item \textbf{Sorting Telemetry}: We track element comparisons ($a_i > a_j$), element swaps ($a_j \leftrightarrow a_{j+1}$), and element right shifts ($a_{i+1} = a_i$).
+\end{enumerate}
+
+\section{Theoretical Analysis vs. Experimental Telemetry}
+It is essential to clarify the boundary between mathematical proofs and empirical measurements:
+\begin{itemize}
+    \item An empirical measurement (timing $t$ in nanoseconds) is \emph{not} a mathematical proof of an asymptotic bound.
+    \item Physical runtimes reflect constant multipliers, memory cache hierarchy (L1/L2/L3 cache misses), CPU frequency scaling, and operating system context switching.
+    \item Conversely, operation counts derived from discrete mathematics are deterministic and hardware-independent.
+\end{itemize}

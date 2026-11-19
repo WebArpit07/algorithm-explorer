@@ -1,0 +1,303 @@
+\chapter{Analytical Study of Four Canonical Algorithms}
+\label{chap:analytical_study}
+
+In accordance with Kenneth H. Rosen's \emph{Discrete Mathematics and Its Applications} (8th Ed., Chapter 3) \cite{rosen2019discrete}, we present a comprehensive analytical investigation of four foundational algorithms. For each algorithm, we provide its formal problem specification, working principle, step-by-step trace on a small sample, pseudocode, authoritative Python implementation, live execution output, and mathematical complexity derivation.
+
+% ==============================================================================
+% 6.1 LINEAR SEARCH
+% ==============================================================================
+\section{Linear Search (Rosen §3.1, Algorithm 2)}
+\label{sec:linear_search}
+
+\subsection{Problem Statement \& Objective}
+Given a sequence of $n$ elements $S = [a_0, a_1, \dots, a_{n-1}]$ and a target key $x$, locate the index $i$ of the first occurrence of $x$ in $S$. If $x \notin S$, return $-1$.
+
+\subsection{Working Principle}
+Linear Search conducts a sequential pass from index $0$ to $n-1$, evaluating $a_i == x$ at each position. It operates without any precondition on the ordering of elements.
+
+\subsection{Step-by-Step Example}
+Given sequence $S = [15, 23, 7, 42, 19]$ and target $x = 42$:
+\begin{enumerate}
+    \item \textbf{Step 0}: Probe $a_0 = 15$. $15 \neq 42$. Continue. (1 comparison)
+    \item \textbf{Step 1}: Probe $a_1 = 23$. $23 \neq 42$. Continue. (2 comparisons)
+    \item \textbf{Step 2}: Probe $a_2 = 7$. $7 \neq 42$. Continue. (3 comparisons)
+    \item \textbf{Step 3}: Probe $a_3 = 42$. $42 == 42$. Match found. Return index $3$.
+\end{enumerate}
+Total Key Comparisons: $4$.
+
+\subsection{Pseudocode (Rosen §3.1, Alg. 2)}
+\begin{lstlisting}[caption={Pseudocode: Linear Search (Rosen §3.1, Algorithm 2)}]
+procedure linear_search(x: integer, a1, a2, ..., an: integers)
+    i := 1
+    while (i <= n and x != a_i)
+        i := i + 1
+    if i <= n then location := i
+    else location := 0
+    return location
+\end{lstlisting}
+
+\subsection{Python Implementation}
+Listing \ref{lst:linear_search} presents the authoritative source code from \texttt{src/algorithms/search.py}.
+
+\begin{lstlisting}[language=Python, caption={Authoritative Implementation of Linear Search}, label={lst:linear_search}]
+def linear_search(seq: Sequence[Any], target: Any) -> int:
+    for index, item in enumerate(seq):
+        if item == target:
+            return index
+    return -1
+
+def linear_search_instrumented(seq: Sequence[Any], target: Any) -> tuple[int, SearchMetrics]:
+    n = len(seq)
+    key_comparisons = 0
+    equality_comparisons = 0
+    loop_evaluations = 0
+
+    for index in range(n):
+        loop_evaluations += 1
+        equality_comparisons += 1
+        key_comparisons += 1
+        if seq[index] == target:
+            return index, SearchMetrics(
+                key_comparisons=key_comparisons,
+                equality_comparisons=equality_comparisons,
+                ordering_comparisons=0,
+                loop_evaluations=loop_evaluations,
+            )
+
+    loop_evaluations += 1
+    return -1, SearchMetrics(
+        key_comparisons=key_comparisons,
+        equality_comparisons=equality_comparisons,
+        ordering_comparisons=0,
+        loop_evaluations=loop_evaluations,
+    )
+\end{lstlisting}
+
+\subsection{Execution Trace Output}
+Executing on sample $S = [15, 23, 7, 42, 19]$ yields:
+\begin{verbatim}
+Best Case   (target=15) -> Index: 0, Key Comparisons: 1
+Middle Case (target=7)  -> Index: 2, Key Comparisons: 3
+Worst Case  (target=19) -> Index: 4, Key Comparisons: 5
+Missing Case(target=99) -> Index: -1, Key Comparisons: 5
+\end{verbatim}
+
+\subsection{Mathematical Complexity Derivation}
+\begin{itemize}
+    \item \textbf{Best Case}: Target is at index $0$. $T_{\text{best}}(n) = 1 = \Theta(1)$.
+    \item \textbf{Worst Case (Successful)}: Target is at index $n - 1$. $T_{\text{worst}}(n) = n = \Theta(n)$.
+    \item \textbf{Unsuccessful Search}: Target is absent. Algorithm checks all $n$ elements. $T_{\text{unsuccessful}}(n) = n = \Theta(n)$.
+    \item \textbf{Average Case (Successful)}: Under uniform target distribution where $P(x = a_i) = 1/n$:
+    $$T_{\text{avg}}(n) = \sum_{i=1}^n i \cdot \frac{1}{n} = \frac{1}{n} \cdot \frac{n(n + 1)}{2} = \frac{n + 1}{2} = \Theta(n)$$
+    \item \textbf{Auxiliary Space}: $\Theta(1)$ (in-place).
+\end{itemize}
+
+% ==============================================================================
+% 6.2 BINARY SEARCH
+% ==============================================================================
+\section{Binary Search (Rosen §3.1, Algorithm 3)}
+\label{sec:binary_search}
+
+\subsection{Problem Statement \& Objective}
+Given a pre-sorted sequence $S = [a_0, a_1, \dots, a_{n-1}]$ in non-decreasing order ($a_0 \le a_1 \le \dots \le a_{n-1}$) and a target key $x$, determine an index location $i$ where $a_i == x$, or return $-1$ if $x \notin S$.
+
+\subsection{Working Principle}
+Binary Search operates by interval halving. It maintains search boundaries $[\text{low}, \text{high}]$. In each iteration, it inspects midpoint $\text{mid} = \lfloor (\text{low} + \text{high}) / 2 \rfloor$. If $a_{\text{mid}} == x$, it halts. If $a_{\text{mid}} < x$, it restricts search to the upper subsegment $[\text{mid} + 1, \text{high}]$. Otherwise, it restricts search to $[\text{low}, \text{mid} - 1]$.
+
+\subsection{Step-by-Step Example}
+Sorted sequence: $S = [10, 20, 30, 40, 50, 60, 70]$, Target: $x = 60$:
+\begin{enumerate}
+    \item \textbf{Probe 1}: $\text{low}=0, \text{high}=6 \implies \text{mid}=3$. Element $a_3 = 40$.
+    \begin{itemize}
+        \item Equality: $40 == 60$ (False).
+        \item Ordering: $40 < 60$ (True). Narrow to right half: $\text{low} = 4$.
+    \end{itemize}
+    \item \textbf{Probe 2}: $\text{low}=4, \text{high}=6 \implies \text{mid}=5$. Element $a_5 = 60$.
+    \begin{itemize}
+        \item Equality: $60 == 60$ (True). Match found at index $5$!
+    \end{itemize}
+\end{enumerate}
+Total Key Comparisons: $1 \text{ (ordering)} + 2 \text{ (equalities)} = 3$.
+
+\subsection{Pseudocode (Rosen §3.1, Alg. 3)}
+\begin{lstlisting}[caption={Pseudocode: Binary Search (Rosen §3.1, Algorithm 3)}]
+procedure binary_search(x: integer, a1, a2, ..., an: increasing integers)
+    i := 1  {left endpoint of search interval}
+    j := n  {right endpoint of search interval}
+    while i < j
+        m := floor((i + j) / 2)
+        if x > a_m then i := m + 1
+        else j := m
+    if x = a_i then location := i
+    else location := 0
+    return location
+\end{lstlisting}
+
+\subsection{Python Implementation}
+Listing \ref{lst:binary_search} presents the authoritative source code from \texttt{src/algorithms/search.py}.
+
+\begin{lstlisting}[language=Python, caption={Authoritative Implementation of Binary Search}, label={lst:binary_search}]
+def binary_search(seq: Sequence[Any], target: Any, *, check_sorted: bool = False) -> int:
+    if check_sorted:
+        for i in range(len(seq) - 1):
+            if seq[i] > seq[i + 1]:
+                raise ValueError("Precondition violated: sequence must be sorted.")
+    low = 0
+    high = len(seq) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        mid_val = seq[mid]
+        if mid_val == target:
+            return mid
+        elif mid_val < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+    return -1
+\end{lstlisting}
+
+\subsection{Mathematical Complexity Derivation}
+The maximum number of interval halving steps satisfies the recurrence relation:
+$$T(n) = T(\lfloor n/2 \rfloor) + \mathcal{O}(1)$$
+By the Master Theorem, $T(n) = \Theta(\log n)$.
+\begin{itemize}
+    \item \textbf{Best Case}: Target is located at initial midpoint. $T_{\text{best}}(n) = 1 = \Theta(1)$ key comparison.
+    \item \textbf{Worst Case}: Unsuccessful search or target located at leaf level. Maximum probes is $\lfloor \log_2 n \rfloor + 1$. Each non-terminating probe performs 2 comparisons (1 equality + 1 ordering):
+    $$T_{\text{worst}}(n) \le 2(\lfloor \log_2 n \rfloor + 1) = \Theta(\log n)$$
+    \item \textbf{Auxiliary Space}: $\Theta(1)$ (iterative).
+\end{itemize}
+
+% ==============================================================================
+% 6.3 BUBBLE SORT
+% ==============================================================================
+\section{Bubble Sort (Rosen §3.1, Algorithm 4)}
+\label{sec:bubble_sort}
+
+\subsection{Problem Statement \& Objective}
+Sort a mutable sequence of $n$ elements in place into non-decreasing order ($a_0 \le a_1 \le \dots \le a_{n-1}$) using adjacent pairwise exchanges.
+
+\subsection{Working Principle}
+Bubble Sort performs $n - 1$ fixed outer passes. In pass $i$ (for $i = 0$ to $n - 2$), it compares adjacent elements $a_j$ and $a_{j+1}$ for $j = 0$ to $n - 2 - i$. If $a_j > a_{j+1}$, it swaps them. Per Rosen §3.1 (Algorithm 4), the textbook primary version does \emph{not} employ early termination flags.
+
+\subsection{Step-by-Step Example}
+Input array: $A = [4, 2, 5, 1]$ ($n = 4$):
+\begin{itemize}
+    \item \textbf{Pass 0}: Compare $(4, 2) \to$ Swap $[2, 4, 5, 1]$; Compare $(4, 5) \to$ No swap; Compare $(5, 1) \to$ Swap $[2, 4, 1, 5]$. (3 comps, 2 swaps)
+    \item \textbf{Pass 1}: Compare $(2, 4) \to$ No swap; Compare $(4, 1) \to$ Swap $[2, 1, 4, 5]$. (2 comps, 1 swap)
+    \item \textbf{Pass 2}: Compare $(2, 1) \to$ Swap $[1, 2, 4, 5]$. (1 comp, 1 swap)
+\end{itemize}
+Total Comparisons: $3 + 2 + 1 = 6 = \frac{4 \times 3}{2}$. Total Swaps: $4$.
+
+\subsection{Pseudocode (Rosen §3.1, Alg. 4)}
+\begin{lstlisting}[caption={Pseudocode: Bubble Sort (Rosen §3.1, Algorithm 4)}]
+procedure bubblesort(a1, ..., an: real numbers with n >= 2)
+    for i := 1 to n - 1
+        for j := 1 to n - i
+            if a_j > a_{j+1} then swap a_j and a_{j+1}
+\end{lstlisting}
+
+\subsection{Python Implementation}
+Listing \ref{lst:bubble_sort} presents the authoritative source code from \texttt{src/algorithms/sorting.py}.
+
+\begin{lstlisting}[language=Python, caption={Authoritative Implementation of Bubble Sort}, label={lst:bubble_sort}]
+def bubble_sort(arr: MutableSequence[Any]) -> MutableSequence[Any]:
+    n = len(arr)
+    for i in range(n - 1):
+        for j in range(n - 1 - i):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+    return arr
+\end{lstlisting}
+
+\subsection{Mathematical Complexity Derivation}
+\begin{itemize}
+    \item \textbf{Comparisons (All Cases)}: For any input of size $n$, the fixed pass structure executes:
+    $$\sum_{i=0}^{n-2} (n - 1 - i) = (n - 1) + (n - 2) + \dots + 1 = \frac{n(n - 1)}{2} = \Theta(n^2)$$
+    \item \textbf{Best-Case Swaps}: Input already sorted $\implies 0$ swaps.
+    \item \textbf{Worst-Case Swaps}: Reverse-sorted distinct array. Every pair is inverted $\implies \frac{n(n-1)}{2}$ swaps.
+    \item \textbf{Average-Case Swaps}: Random permutations $\implies \frac{n(n-1)}{4}$ expected swaps.
+    \item \textbf{Auxiliary Space}: $\Theta(1)$ (in-place). Stability: Stable.
+\end{itemize}
+
+% ==============================================================================
+% 6.4 INSERTION SORT
+% ==============================================================================
+\section{Insertion Sort (Rosen §3.1, Algorithm 5)}
+\label{sec:insertion_sort}
+
+\subsection{Problem Statement \& Objective}
+Sort a mutable sequence of $n$ elements in place into non-decreasing order by maintaining a sorted prefix and iteratively inserting each subsequent element into its verified position.
+
+\subsection{Working Principle}
+For index $j$ from $1$ to $n-1$:
+\begin{enumerate}
+    \item Store $\text{key} = a_j$.
+    \item Backtrack through the sorted prefix $a_{0 \dots j-1}$ using pointer $i = j - 1$.
+    \item While $i \ge 0$ and $a_i > \text{key}$, shift element $a_i$ one index to the right ($a_{i+1} = a_i$) and decrement $i$.
+    \item Place $\text{key}$ into the resulting slot: $a_{i+1} = \text{key}$.
+\end{enumerate}
+
+\subsection{Counting Convention Definition}
+\begin{itemize}
+    \item \textbf{Right Shift}: Copying an existing element rightward ($a_{i+1} = a_i$).
+    \item \textbf{Insertion Assignment}: Placing the key into the vacant slot ($a_{i+1} = \text{key}$). This is \emph{not} counted as a right shift.
+\end{itemize}
+
+\subsection{Pseudocode (Rosen §3.1, Alg. 5)}
+\begin{lstlisting}[caption={Pseudocode: Insertion Sort (Rosen §3.1, Algorithm 5)}]
+procedure insertion_sort(a1, a2, ..., an: real numbers with n >= 2)
+    for j := 2 to n
+        i := 1
+        while aj > ai
+            i := i + 1
+        m := aj
+        for k := 0 to j - i - 1
+            aj - k := aj - k - 1
+        ai := m
+\end{lstlisting}
+
+\subsection{Python Implementation}
+Listing \ref{lst:insertion_sort} presents the authoritative source code from \texttt{src/algorithms/sorting.py}.
+
+\begin{lstlisting}[language=Python, caption={Authoritative Implementation of Insertion Sort}, label={lst:insertion_sort}]
+def insertion_sort(arr: MutableSequence[Any]) -> MutableSequence[Any]:
+    n = len(arr)
+    for j in range(1, n):
+        key = arr[j]
+        i = j - 1
+        while i >= 0 and arr[i] > key:
+            arr[i + 1] = arr[i]
+            i -= 1
+        arr[i + 1] = key
+    return arr
+
+def insertion_sort_instrumented(arr: MutableSequence[Any]) -> tuple[MutableSequence[Any], SortingMetrics]:
+    n = len(arr)
+    element_comparisons = 0
+    right_shifts = 0
+
+    for j in range(1, n):
+        key = arr[j]
+        i = j - 1
+        while i >= 0:
+            element_comparisons += 1
+            if arr[i] > key:
+                arr[i + 1] = arr[i]
+                right_shifts += 1
+                i -= 1
+            else:
+                break
+        arr[i + 1] = key
+
+    return arr, SortingMetrics(element_comparisons=element_comparisons, swaps=0, right_shifts=right_shifts)
+\end{lstlisting}
+
+\subsection{Mathematical Complexity Derivation}
+\begin{itemize}
+    \item \textbf{Best Case (Already Sorted)}: In every step $j$, $a_{j-1} > \text{key}$ evaluates to False on the first probe.
+    $$T_{\text{best}}(n) = n - 1 = \Theta(n) \text{ comparisons}, \quad 0 \text{ right shifts}$$
+    \item \textbf{Worst Case (Reverse Sorted Distinct)}: Key shifts past all $j$ items in prefix.
+    $$\text{Comparisons} = \sum_{j=1}^{n-1} j = \frac{n(n - 1)}{2} = \Theta(n^2), \quad \text{Shifts} = \frac{n(n - 1)}{2} = \Theta(n^2)$$
+    \item \textbf{Average Case}: $\Theta(n^2)$ comparisons and right shifts ($\approx n^2 / 4$).
+    \item \textbf{Auxiliary Space}: $\Theta(1)$ (in-place). Stability: Stable.
+\end{itemize}

@@ -1,0 +1,62 @@
+\chapter{Additional Experimental Tables}
+\label{app:tables}
+
+This appendix provides supplementary empirical summary tables covering common search scenarios and sorting topologies.
+
+\section{Search Common Positions: Middle Target Scenario}
+Table \ref{tab:search_middle_summary} records the measurements when the target resides at index $\lfloor n / 2 \rfloor$.
+
+\begin{table}[htbp]
+\centering
+\caption{Searching Empirical Summary: Middle Target Scenario}
+\label{tab:search_middle_summary}
+\small
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrrr}
+\toprule
+\textbf{Algorithm} & $n$ & \textbf{Key Comps} & \textbf{Median ($\mu$s)} & \textbf{Mean ($\mu$s)} & \textbf{Std Dev ($\mu$s)} \\
+\midrule
+Linear Search & 100 & 51 & 1.81 & 1.82 & 0.07 \\
+Linear Search & 500 & 251 & 8.35 & 8.41 & 0.15 \\
+Linear Search & 1\,000 & 501 & 19.00 & 19.02 & 0.28 \\
+Linear Search & 5\,000 & 2\,501 & 96.40 & 96.35 & 1.66 \\
+Linear Search & 10\,000 & 5\,001 & 190.80 & 191.64 & 3.33 \\
+Linear Search & 50\,000 & 25\,001 & 952.00 & 952.52 & 10.71 \\
+Linear Search & 100\,000 & 50\,001 & 1\,900.00 & 1\,943.33 & 56.83 \\
+\midrule
+Binary Search & 100 & 11 & 0.57 & 0.58 & 0.04 \\
+Binary Search & 500 & 15 & 0.90 & 0.91 & 0.04 \\
+Binary Search & 1\,000 & 17 & 1.04 & 1.04 & 0.02 \\
+Binary Search & 5\,000 & 23 & 1.36 & 1.36 & 0.02 \\
+Binary Search & 10\,000 & 25 & 1.49 & 1.51 & 0.06 \\
+Binary Search & 50\,000 & 29 & 1.69 & 1.70 & 0.05 \\
+Binary Search & 100\,000 & 31 & 1.90 & 1.94 & 0.06 \\
+\bottomrule
+\end{tabular*}
+\end{table}
+
+\section{Sorting Pre-Sorted Scenario: Best-Case Analysis}
+Table \ref{tab:sorting_sorted_summary} documents algorithm behavior on pre-sorted arrays.
+
+\begin{table}[htbp]
+\centering
+\caption{Sorting Empirical Summary: Already Sorted Input Topology}
+\label{tab:sorting_sorted_summary}
+\small
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrrr}
+\toprule
+\textbf{Algorithm} & $n$ & \textbf{Comparisons} & \textbf{Swaps / Shifts} & \textbf{Median (ms)} & \textbf{Mean (ms)} \\
+\midrule
+Bubble Sort & 100 & 4\,950 & 0 & 0.22 & 0.22 \\
+Bubble Sort & 500 & 124\,750 & 0 & 5.68 & 5.68 \\
+Bubble Sort & 1\,000 & 499\,500 & 0 & 25.79 & 25.74 \\
+Bubble Sort & 2\,000 & 1\,999\,000 & 0 & 106.28 & 106.22 \\
+Bubble Sort & 3\,000 & 4\,498\,500 & 0 & 246.25 & 246.87 \\
+\midrule
+Insertion Sort & 100 & 99 & 0 & 0.009 & 0.009 \\
+Insertion Sort & 500 & 499 & 0 & 0.047 & 0.048 \\
+Insertion Sort & 1\,000 & 999 & 0 & 0.102 & 0.102 \\
+Insertion Sort & 2\,000 & 1\,999 & 0 & 0.211 & 0.212 \\
+Insertion Sort & 3\,000 & 2\,999 & 0 & 0.320 & 0.321 \\
+\bottomrule
+\end{tabular*}
+\end{table}

@@ -1,0 +1,35 @@
+\chapter{Supplementary Execution Outputs}
+\label{app:outputs}
+
+This appendix provides verbatim terminal and notebook test execution outputs validating algorithm correctness and data integrity.
+
+\section{Automated Correctness Test Suite (pytest)}
+\begin{verbatim}
+============================= test session starts =============================
+platform win32 -- Python 3.14.7, pytest-9.1.1, pluggy-1.7.0
+rootdir: D:\DiscreteMathsProject_202612120
+configfile: pyproject.toml
+testpaths: tests
+collected 55 items
+
+tests\test_benchmarking.py .............                                 [ 23%]
+tests\test_search.py ........................                            [ 67%]
+tests\test_sorting.py ..................                                 [100%]
+
+============================= 55 passed in 1.91s ==============================
+\end{verbatim}
+
+\section{Pilot Benchmark Calibration Log}
+\begin{verbatim}
+======================================================================
+ALGORITHM EXPLORER — EMPIRICAL BENCHMARKING SUITE
+Academic Reference: Kenneth H. Rosen, Discrete Mathematics (8th Ed.)
+Random Seed: 42 | Repetitions per Configuration: 30
+======================================================================
+
+[1/4] Running Environment Verification and Pilot Benchmark...
+  Pilot n=100: BubbleSort=0.389ms, InsertionSort=0.199ms
+  Pilot n=500: BubbleSort=9.931ms, InsertionSort=4.818ms
+  Pilot n=1000: BubbleSort=42.626ms, InsertionSort=20.307ms
+  Pilot n=2000: BubbleSort=176.271ms, InsertionSort=80.585ms
+\end{verbatim}

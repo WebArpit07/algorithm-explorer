@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Algorithm Explorer — Interactive Algorithm Analysis & Complexity Visualization grounded in Kenneth H. Rosen, Discrete Mathematics and Its Applications (8th Edition), Chapter 3.">
+    <title>Algorithm Explorer — Interactive Algorithm Analysis & Complexity Visualization</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- SITE HEADER & NAVIGATION -->
+    <header class="site-header">
+        <div class="header-container">
+            <div class="logo-group">
+                <span class="logo-badge">MSc IT</span>
+                <div>
+                    <h1 class="logo-title">Algorithm Explorer</h1>
+                    <p class="logo-sub">Rosen Ch. 3 Analytical & Empirical Suite</p>
+                </div>
+            </div>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu">&#9776;</button>
+            <nav>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#explorer">Explorer</a></li>
+                    <li><a href="#searching-lab">Searching Lab</a></li>
+                    <li><a href="#sorting-lab">Sorting Lab</a></li>
+                    <li><a href="#comparison-lab">Comparison Lab</a></li>
+                    <li><a href="#growth-lab">Growth of Functions</a></li>
+                    <li><a href="#benchmarks">Python Benchmarks</a></li>
+                    <li><a href="#references">References</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT WRAPPER -->
+    <main class="main-wrapper">
+
+        <!-- 1. OVERVIEW & HERO SECTION -->
+        <section id="overview" class="section">
+            <div class="hero-card">
+                <div class="hero-meta">
+                    <span class="badge badge-academic">Academic Research Monograph</span>
+                    <span class="badge badge-textbook">Kenneth H. Rosen — 8th Edition</span>
+                    <span class="badge badge-status">Discrete Mathematics Chapter 3</span>
+                </div>
+                <h2 class="hero-title">Algorithm Explorer: Analytical & Empirical Complexity Platform</h2>
+                <p class="hero-subtitle">
+                    A comprehensive, interactive computational environment investigating algorithm design, formal asymptotic growth ($\mathcal{O}, \Omega, \Theta$), and exact operation counts. Developed for university-level Discrete Mathematics, this suite unifies mathematical proofs with live interactive simulations and empirical telemetry from Python microbenchmarks.
+                </p>
+                <div class="quick-links">
+                    <a href="#searching-lab" class="btn-pill"><span>🔍</span> Searching Lab</a>
+                    <a href="#sorting-lab" class="btn-pill"><span>📊</span> Sorting Lab</a>
+                    <a href="#comparison-lab" class="btn-pill"><span>⚔️</span> Head-to-Head Comparisons</a>
+                    <a href="#growth-lab" class="btn-pill"><span>📈</span> Growth Hierarchy</a>
+                    <a href="#benchmarks" class="btn-pill"><span>🔬</span> Python 3.14.7 Data</a>
+                </div>
+            </div>
+
+            <!-- 4 Canonical Algorithm Cards -->
+            <div class="algo-cards-grid">
+                <!-- Linear Search -->
+                <div class="algo-card">
+                    <div>
+                        <div class="algo-card-header">
+                            <h3 class="algo-card-title">Linear Search</h3>
+                            <span class="algo-card-ref">Rosen §3.1 (Alg. 2)</span>
+                        </div>
+                        <p class="algo-card-desc">Sequentially traverses an arbitrary sequence. Requires zero preprocessing or preconditions.</p>
+                    </div>
+                    <div class="complexity-pill-list">
+                        <div class="comp-pill-item"><span class="lbl">Best Case:</span> <code>Θ(1)</code></div>
+                        <div class="comp-pill-item"><span class="lbl">Worst Case:</span> <code>Θ(n)</code> (n comparisons)</div>
+                        <div class="comp-pill-item"><span class="lbl">Average Case:</span> <code>Θ(n)</code> ((n+1)/2)</div>
+                    </div>
+                </div>
+
+                <!-- Binary Search -->
+                <div class="algo-card">
+                    <div>
+                        <div class="algo-card-header">
+                            <h3 class="algo-card-title">Binary Search</h3>
+                            <span class="algo-card-ref">Rosen §3.1 (Alg. 3)</span>
+                        </div>
+                        <p class="algo-card-desc">Logarithmic divide-and-conquer probing. Halves the search space on each iteration.</p>
+                    </div>
+                    <div class="complexity-pill-list">
+                        <div class="comp-pill-item"><span class="lbl">Precondition:</span> <code>Sorted sequence</code></div>
+                        <div class="comp-pill-item"><span class="lbl">Worst Case:</span> <code>Θ(log n)</code> (2⌊log₂ n⌋ + 2)</div>
+                        <div class="comp-pill-item"><span class="lbl">Speedup at 100k:</span> <code>≈ 1,946×</code></div>
+                    </div>
+                </div>
+
+                <!-- Bubble Sort -->
+                <div class="algo-card">
+                    <div>
+                        <div class="algo-card-header">
+                            <h3 class="algo-card-title">Bubble Sort</h3>
+                            <span class="algo-card-ref">Rosen §3.1 (Alg. 4)</span>
+                        </div>
+                        <p class="algo-card-desc">Adjacent exchange sort. Fixed-pass formulation without early exit preserves exact operation invariance.</p>
+                    </div>
+                    <div class="complexity-pill-list">
+                        <div class="comp-pill-item"><span class="lbl">Comparisons:</span> <code>Θ(n²)</code> (n(n-1)/2 invariant)</div>
+                        <div class="comp-pill-item"><span class="lbl">Best Swaps:</span> <code>0</code> (Sorted)</div>
+                        <div class="comp-pill-item"><span class="lbl">Worst Swaps:</span> <code>n(n-1)/2</code> (Reverse)</div>
+                    </div>
+                </div>
+
+                <!-- Insertion Sort -->
+                <div class="algo-card">
+                    <div>
+                        <div class="algo-card-header">
+                            <h3 class="algo-card-title">Insertion Sort</h3>
+                            <span class="algo-card-ref">Rosen §3.1 (Alg. 5)</span>
+                        </div>
+                        <p class="algo-card-desc">Incremental insertion into a sorted prefix. Highly adaptive to existing input order.</p>
+                    </div>
+                    <div class="complexity-pill-list">
+                        <div class="comp-pill-item"><span class="lbl">Best Case:</span> <code>Θ(n)</code> (n - 1 comparisons)</div>
+                        <div class="comp-pill-item"><span class="lbl">Worst Case:</span> <code>Θ(n²)</code> (n(n-1)/2 shifts)</div>
+                        <div class="comp-pill-item"><span class="lbl">Inversion Identity:</span> <code>Shifts ≡ Swaps</code></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. ALGORITHM EXPLORER DEEP-DIVE -->
+        <section id="explorer" class="section">
+            <div class="section-header">
+                <h2 class="section-title"><span class="section-icon">📖</span> Algorithm Explorer: Deep-Dive Foundations</h2>
+                <p class="section-desc">Inspect exact mathematical specifications, loop invariants, pseudocode, and formal complexity classifications from Rosen Chapter 3.</p>
+            </div>
+
+            <div class="tabs-nav">
+                <button class="algo-tab-btn active" data-algo="linear_search">Linear Search (§3.1, Alg. 2)</button>
+                <button class="algo-tab-btn" data-algo="binary_search">Binary Search (§3.1, Alg. 3)</button>
+                <button class="algo-tab-btn" data-algo="bubble_sort">Bubble Sort (§3.1, Alg. 4)</button>
+                <button class="algo-tab-btn" data-algo="insertion_sort">Insertion Sort (§3.1, Alg. 5)</button>
+            </div>
+
+            <div id="algo-details-display">
+                <!-- Dynamically populated by app.js -->
+            </div>
+        </section>
+
+        <!-- 3. INTERACTIVE SEARCHING LAB -->
+        <section id="searching-lab" class="section">
+            <div class="section-header">
+                <h2 class="section-title"><span class="section-icon">🔍</span> Interactive Searching Lab</h2>
+                <p class="section-desc">Observe probing dynamics, loop invariants, and boundary checks in real time across arbitrary and pre-sorted sequences.</p>
+            </div>
+
+            <div class="lab-card">
+                <!-- Controls Panel -->
+                <div class="lab-controls-panel">
+                    <div class="controls-row">
+                        <div class="control-group">
+                            <label for="search-algo-select">Algorithm:</label>
+                            <select id="search-algo-select" class="select-input">
+                                <option value="linear_search">Linear Search (Rosen Alg. 2)</option>
+                                <option value="binary_search">Binary Search (Rosen Alg. 3)</option>
+                            </select>
+                        </div>
+
+                        <div class="control-group">
+                            <label for="search-target-input">Target (x):</label>
+                            <input type="number" id="search-target-input" class="text-input" style="width: 80px;" value="42">
+                        </div>
+
+                        <div class="control-group">
+                            <label for="search-custom-input">Array (CSV):</label>
+                            <input type="text" id="search-custom-input" class="text-input" value="12, 28, 35, 42, 55, 68, 74, 89, 93" style="width: 260px;">
+                        </div>
+
+                        <button id="search-gen-rand-btn" class="btn-ctrl">🎲 Random Data</button>
+                    </div>
+
+                    <!-- Precondition Alert for Binary Search -->
+                    <div id="search-precondition-alert" class="precondition-alert hidden">
+                        <span>⚠️ <strong>Precondition Violation:</strong> Binary Search requires elements to be sorted in non-decreasing order ($a_1 \le a_2 \le \dots \le a_n$).</span>
+                        <button id="search-sort-btn" class="btn-ctrl btn-primary">⚡ Sort Array (Satisfy Precondition)</button>
+                    </div>
+
+                    <!-- Execution Controls -->
+                    <div class="controls-row">
+                        <button id="search-play-btn" class="btn-ctrl btn-primary">▶ Play</button>
+                        <button id="search-pause-btn" class="btn-ctrl" disabled>⏸ Pause</button>
+                        <button id="search-step-btn" class="btn-ctrl">⏭ Step</button>
+                        <button id="search-reset-btn" class="btn-ctrl btn-danger">↺ Reset</button>
+
+                        <div class="slider-group">
+                            <label for="search-speed-slider">Speed:</label>
+                            <input type="range" id="search-speed-slider" class="range-slider" min="100" max="1000" value="550">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Telemetry Counters -->
+                <div class="telemetry-row">
+                    <div class="telemetry-card">
+                        <div class="metric-label">Key Comparisons</div>
+                        <div class="metric-value" id="search-metric-comparisons">0</div>
+                    </div>
+                    <div class="telemetry-card">
+                        <div class="metric-label">Iterations</div>
+                        <div class="metric-value" id="search-metric-iterations">0</div>
+                    </div>
+                    <div class="telemetry-card">
+                        <div class="metric-label">Search Status</div>
+                        <div class="metric-value" id="search-metric-status">Ready</div>
+                    </div>
+                    <div class="telemetry-card">
+                        <div class="metric-label">Match Location</div>
+                        <div class="metric-value" id="search-metric-result">None</div>
+                    </div>
+                </div>
+
+                <!-- Visualization Stage -->
+                <div class="viz-stage">
+                    <div id="search-array-container"></div>
+                    <div id="search-status-text" class="stage-status-desc">Ready to execute. Click Play or Step.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. INTERACTIVE SORTING LAB -->
+        <section id="sorting-lab" class="section">
+            <div class="section-header">
+                <h2 class="section-title"><span class="section-icon">📊</span> Interactive Sorting Lab</h2>
+                <p class="section-desc">Experience in-place sorting mechanisms. Compare fixed-pass comparison invariance against adaptive prefix insertion.</p>
+            </div>
+
+            <div class="lab-card">
+                <!-- Controls Panel -->
+                <div class="lab-controls-panel">
+                    <div class="controls-row">
+                        <div class="control-group">
+                            <label for="sort-algo-select">Algorithm:</label>
+                            <select id="sort-algo-select" class="select-input">
+                                <option value="bubble_sort">Bubble Sort (Rosen Alg. 4 - Fixed Pass)</option>
+                                <option value="insertion_sort">Insertion Sort (Rosen Alg. 5 - Adaptive)</option>
+                            </select>
+                        </div>
+
+                        <div class="control-group">
+                            <label for="sort-custom-input">Array (CSV):</label>
+                            <input type="text" id="sort-custom-input" class="text-input" value="45, 18, 62, 29, 73, 11, 88, 34, 52, 23" style="width: 260px;">
+                        </div>
+
+                        <button id="sort-gen-rand-btn" class="btn-ctrl">🎲 Random</button>
+                        <button id="sort-gen-sorted-btn" class="btn-ctrl">📈 Sorted</button>
+                        <button id="sort-gen-rev-btn" class="btn-ctrl">📉 Reverse</button>
+                    </div>
+
+                    <!-- Execution Controls -->
+                    <div class="controls-row">
+                        <button id="sort-play-btn" class="btn-ctrl btn-primary">▶ Play</button>
+                        <button id="sort-pause-btn" class="btn-ctrl" disabled>⏸ Pause</button>
+                        <button id="sort-step-btn" class="btn-ctrl">⏭ Step</button>
+                        <button id="sort-reset-btn" class="btn-ctrl btn-danger">↺ Reset</button>
+
+                        <div class="slider-group">
+                            <label for="sort-speed-slider">Speed:</label>
+                            <input type="range" id="sort-speed-slider" class="range-slider" min="50" max="600" value="350">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Telemetry Counters -->
+                <div class="telemetry-row">
+                    <div class="telemetry-card">
+                        <div class="metric-label">Element Comparisons</div>
+                        <div class="metric-value" id="sort-metric-comparisons">0</div>
+                    </div>
+                    <div class="telemetry-card">
+                        <div class="metric-label" id="sort-metric-swaps-label">Swaps</div>
+                        <div class="metric-value" id="sort-metric-swaps-shifts">0</div>
+                    </div>
+                    <div class="telemetry-card">
+                        <div class="metric-label">Active Pass</div>
+                        <div class="metric-value" id="sort-metric-pass">0</div>
+                    </div>
+                    <div class="telemetry-card">
+                        <div class="metric-label">Sorting Status</div>
+                        <div class="metric-value" id="sort-metric-status">Ready</div>
+                    </div>
+                </div>
+
+                <!-- Visualization Stage -->
+                <div class="viz-stage">
+                    <div id="sorting-canvas-container" style="width: 100%;"></div>
+                    <div id="sort-status-text" class="stage-status-desc">Ready to sort. Click Play or Step.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. ALGORITHM COMPARISON LAB -->
+        <section id="comparison-lab" class="section">
+            <div class="section-header">
+                <h2 class="section-title"><span class="section-icon">⚔️</span> Head-to-Head Comparison Lab</h2>
+                <p class="section-desc">Live client-side JavaScript benchmark simulation. Empirically verifies asymptotic speedups and the Inversion Equivalence Theorem.</p>
+            </div>
+
+            <div class="comp-grid">
+                <!-- Search Comparison -->
+                <div class="comp-panel">
+                    <h3>Searching: Linear vs Binary Search</h3>
+                    <div class="controls-row" style="margin-bottom: 1rem;">
+                        <div class="control-group">
+                            <label for="comp-search-size">Size (n):</label>
+                            <select id="comp-search-size" class="select-input">
+                                <option value="100">100 elements</option>
+                                <option value="500">500 elements</option>
+                                <option value="1000" selected>1,000 elements</option>
+                                <option value="5000">5,000 elements</option>
+                                <option value="10000">10,000 elements</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="comp-search-scenario">Target Position:</label>
+                            <select id="comp-search-scenario" class="select-input">
+                                <option value="first">First Element (Index 0)</option>
+                                <option value="middle">Middle Element</option>
+                                <option value="last">Last Element (Index n-1)</option>
+                                <option value="missing" selected>Missing Target (Worst Case)</option>
+                            </select>
+                        </div>
+                        <button id="comp-search-run-btn" class="btn-ctrl btn-primary">Run Compare</button>
+                    </div>
+
+                    <div id="comp-search-chart" class="comp-bars-container"></div>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.75rem;">
+                        * Note: Browser timings are illustrative client-side measurements, strictly isolated from Python M3 benchmarks.
+                    </p>
+                </div>
+
+                <!-- Sorting Comparison -->
+                <div class="comp-panel">
+                    <h3>Sorting: Bubble Sort vs Insertion Sort</h3>
+                    <div class="controls-row" style="margin-bottom: 1rem;">
+                        <div class="control-group">
+                            <label for="comp-sort-size">Size (n):</label>
+                            <select id="comp-sort-size" class="select-input">
+                                <option value="50">50 elements</option>
+                                <option value="100">100 elements</option>
+                                <option value="200" selected>200 elements</option>
+                                <option value="400">400 elements</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="comp-sort-arrangement">Arrangement:</label>
+                            <select id="comp-sort-arrangement" class="select-input">
+                                <option value="random" selected>Random Permutation</option>
+                                <option value="sorted">Pre-Sorted (Best Case)</option>
+                                <option value="reverse">Reverse Sorted (Worst Case)</option>
+                            </select>
+                        </div>
+                        <button id="comp-sort-run-btn" class="btn-ctrl btn-primary">Run Compare</button>
+                    </div>
+
+                    <div id="comp-sort-chart" class="comp-bars-container"></div>
+                    <div id="comp-inversion-proof"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. GROWTH OF FUNCTIONS LAB -->
+        <section id="growth-lab" class="section">
+            <div class="section-header">
+                <h2 class="section-title"><span class="section-icon">📈</span> Growth of Functions Hierarchy</h2>
+                <p class="section-desc">Interactive mathematical curves for Rosen §3.2 asymptotic hierarchy: $\mathcal{O}(1) \prec \mathcal{O}(\log n) \prec \mathcal{O}(n) \prec \mathcal{O}(n \log n) \prec \mathcal{O}(n^2) \prec \mathcal{O}(2^n) \prec \mathcal{O}(n!)$.</p>
+            </div>
+
+            <div class="growth-controls">
+                <div class="control-group">
+                    <label for="growth-range-n">Maximum Input Size (n = <span id="growth-val-n" style="color: var(--accent-blue); font-family: var(--font-mono);">16</span>):</label>
+                    <input type="range" id="growth-range-n" class="range-slider" min="4" max="32" value="16">
+                </div>
+
+                <div class="control-group">
+                    <label class="fn-check-item">
+                        <input type="checkbox" id="growth-scale-toggle">
+                        <span>Logarithmic Y-Scale ($\log_{10}$)</span>
+                    </label>
+                </div>
+
+                <div class="fn-checkbox-grid">
+                    <label class="fn-check-item"><input type="checkbox" class="fn-toggle-checkbox" data-fn="constant" checked> <span style="color: #94a3b8;">1</span></label>
+                    <label class="fn-check-item"><input type="checkbox" class="fn-toggle-checkbox" data-fn="logarithmic" checked> <span style="color: #38bdf8;">log₂(n)</span></label>
+                    <label class="fn-check-item"><input type="checkbox" class="fn-toggle-checkbox" data-fn="linear" checked> <span style="color: #34d399;">n</span></label>
+                    <label class="fn-check-item"><input type="checkbox" class="fn-toggle-checkbox" data-fn="linearithmic" checked> <span style="color: #fbbf24;">n log₂(n)</span></label>
+                    <label class="fn-check-item"><input type="checkbox" class="fn-toggle-checkbox" data-fn="quadratic" checked> <span style="color: #f87171;">n²</span></label>
+                    <label class="fn-check-item"><input type="checkbox" class="fn-toggle-checkbox" data-fn="exponential" checked> <span style="color: #c084fc;">2ⁿ</span></label>
+                    <label class="fn-check-item"><input type="checkbox" class="fn-toggle-checkbox" data-fn="factorial" checked> <span style="color: #f43f5e;">n!</span></label>
+                </div>
+            </div>
+
+            <div class="growth-chart-wrapper">
+                <div id="growth-chart-svg"></div>
+                <div id="growth-tooltip"></div>
+            </div>
+
+            <!-- Mathematical Growth Reference Table -->
+            <div class="table-wrapper">
+                <table class="academic-table">
+                    <thead>
+                        <tr>
+                            <th>n</th>
+                            <th>Constant (1)</th>
+                            <th>Logarithmic (log₂ n)</th>
+                            <th>Linear (n)</th>
+                            <th>Linearithmic (n log₂ n)</th>
+                            <th>Quadratic (n²)</th>
+                            <th>Exponential (2ⁿ)</th>
+                            <th>Factorial (n!)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>1</td><td>0.00</td><td>1</td><td>0.00</td><td>1</td><td>2</td><td>1</td></tr>
+                        <tr><td>2</td><td>1</td><td>1.00</td><td>2</td><td>2.00</td><td>4</td><td>4</td><td>2</td></tr>
+                        <tr><td>4</td><td>1</td><td>2.00</td><td>4</td><td>8.00</td><td>16</td><td>16</td><td>24</td></tr>
+                        <tr><td>8</td><td>1</td><td>3.00</td><td>8</td><td>24.00</td><td>64</td><td>256</td><td>40,320</td></tr>
+                        <tr><td>16</td><td>1</td><td>4.00</td><td>16</td><td>64.00</td><td>256</td><td>65,536</td><td>2.09 × 10¹³</td></tr>
+                        <tr><td>32</td><td>1</td><td>5.00</td><td>32</td><td>160.00</td><td>1,024</td><td>4.29 × 10⁹</td><td>2.63 × 10³⁵</td></tr>
+                        <tr><td>64</td><td>1</td><td>6.00</td><td>64</td><td>384.00</td><td>4,096</td><td>1.84 × 10¹⁹</td><td>1.27 × 10⁸⁹</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 7. EXPERIMENTAL PYTHON BENCHMARK DATA (M3 INTEGRATION) -->
+        <section id="benchmarks" class="section">
+            <div class="section-header">
+                <h2 class="section-title"><span class="section-icon">🔬</span> Python 3.14.7 Experimental Microbenchmarks</h2>
+                <p class="section-desc">Authoritative data recorded from the M3 isolated Python benchmarking harness ($k = 30$ iterations, sub-microsecond batch calibration, fresh input copies).</p>
+            </div>
+
+            <!-- Telemetry Environment -->
+            <div id="benchmark-metadata-container"></div>
+
+            <!-- Research Highlights Cards -->
+            <div class="research-highlights">
+                <div class="highlight-card">
+                    <h4>Search Speedup at n = 100,000</h4>
+                    <div class="big-stat" id="bm-search-speedup">1,946.5×</div>
+                    <p>Binary Search: <span id="bm-search-binary-time">1.77 µs</span> vs Linear Search: <span id="bm-search-linear-time">3.44 ms</span> on missing target.</p>
+                </div>
+
+                <div class="highlight-card">
+                    <h4>Inversion Equivalence (n = 3,000)</h4>
+                    <div class="big-stat" id="bm-sorting-inversion-eq">2,296,691 ops</div>
+                    <p>Bubble Sort swaps ≡ Insertion Sort right shifts on identical random permutation (0.00% discrepancy).</p>
+                </div>
+
+                <div class="highlight-card">
+                    <h4>Adaptive Pre-Sorted Advantage</h4>
+                    <div class="big-stat" id="bm-sorting-adapt-speedup">769× faster</div>
+                    <p>Insertion Sort achieves Θ(n) linear performance on pre-sorted arrays, while fixed-pass Bubble Sort remains Θ(n²).</p>
+                </div>
+            </div>
+
+            <!-- Benchmark Data Tables -->
+            <div class="comp-grid">
+                <div class="comp-panel">
+                    <h3>Searching Benchmark Telemetry (Missing Target / Worst Case)</h3>
+                    <div class="table-wrapper">
+                        <table class="academic-table" id="bm-search-table">
+                            <thead>
+                                <tr>
+                                    <th>Algorithm</th>
+                                    <th>n</th>
+                                    <th>Scenario</th>
+                                    <th>Comparisons</th>
+                                    <th>Loop Checks</th>
+                                    <th>Median Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Loaded dynamically from benchmark_data.json -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="comp-panel">
+                    <h3>Sorting Benchmark Telemetry (Selected Scales)</h3>
+                    <div class="table-wrapper">
+                        <table class="academic-table" id="bm-sort-table">
+                            <thead>
+                                <tr>
+                                    <th>Algorithm</th>
+                                    <th>n</th>
+                                    <th>Topology</th>
+                                    <th>Comparisons</th>
+                                    <th>Swaps</th>
+                                    <th>Shifts</th>
+                                    <th>Median Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Loaded dynamically from benchmark_data.json -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. ACADEMIC REFERENCES SECTION -->
+        <section id="references" class="section">
+            <div class="section-header">
+                <h2 class="section-title"><span class="section-icon">📚</span> Academic References & Textbook Bibliography</h2>
+                <p class="section-desc">Textbook citations and canonical references underpinning the theoretical and experimental models.</p>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="academic-table">
+                    <thead>
+                        <tr>
+                            <th>Citation Key</th>
+                            <th>Formal Reference</th>
+                            <th>Relevance to Algorithm Explorer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>Rosen2019</code></td>
+                            <td>Rosen, Kenneth H. <em>Discrete Mathematics and Its Applications</em>, 8th Edition. McGraw-Hill Education, 2019.</td>
+                            <td>Primary textbook curriculum. Chapter 3: §3.1 Algorithms, §3.2 Growth of Functions, §3.3 Complexity of Algorithms.</td>
+                        </tr>
+                        <tr>
+                            <td><code>Cormen2022</code></td>
+                            <td>Cormen, Thomas H., Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein. <em>Introduction to Algorithms</em>, 4th Edition. MIT Press, 2022.</td>
+                            <td>Loop invariant definitions, formal $\mathcal{O}, \Omega, \Theta$ witness bounds, and asymptotic analysis conventions.</td>
+                        </tr>
+                        <tr>
+                            <td><code>Knuth1998</code></td>
+                            <td>Knuth, Donald E. <em>The Art of Computer Programming, Volume 3: Sorting and Searching</em>, 2nd Edition. Addison-Wesley, 1998.</td>
+                            <td>Inversion count dynamics, comparative sorting bounds, and average-case analysis of Bubble and Insertion sorts.</td>
+                        </tr>
+                        <tr>
+                            <td><code>Hoare1962</code></td>
+                            <td>Hoare, C. A. R. "Quicksort." <em>The Computer Journal</em> 5, no. 1 (1962): 10–16.</td>
+                            <td>Foundational divide-and-conquer principles and recursive partitioning methodologies.</td>
+                        </tr>
+                        <tr>
+                            <td><code>Peters2002</code></td>
+                            <td>Peters, Tim. "Timsort: Adaptive, stable, natural mergesort." <em>CPython Source Repository</em>, 2002.</td>
+                            <td>Modern real-world application of Insertion Sort on small runs and pre-sorted subsequences.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- SITE FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h5>Algorithm Explorer Monograph Suite</h5>
+                <p>University-level Discrete Mathematics and Algorithm Complexity project.</p>
+                <p style="margin-top: 0.5rem; color: var(--text-muted);">Grounded in Kenneth H. Rosen, 8th Edition, Chapter 3.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Academic Deliverables</h5>
+                <ul>
+                    <li><a href="../Algorithm_Explorer_Report.tex">Master LaTeX Source (.tex)</a></li>
+                    <li><a href="../Algorithm_Explorer_Report_Overleaf.zip">Overleaf Distribution Bundle (.zip)</a></li>
+                    <li><a href="../notebooks/algorithm_explorer.ipynb">Interactive Jupyter Notebook (.ipynb)</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Project Status</h5>
+                <p>Milestone M1–M6 Complete · 60 Unit Tests Passing</p>
+                <p style="margin-top: 0.25rem;">Runtime: Python 3.14.7 · Client: Vanilla JS ES2022</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT ASSETS -->
+    <script src="data/benchmark_data.js"></script>
+    <script src="js/algorithms.js"></script>
+    <script src="js/visualizations.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
