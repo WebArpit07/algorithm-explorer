@@ -104,24 +104,27 @@ file:///D:/DiscreteMathsProject_202612120/dashboard/index.html
 
 ---
 
-## 7. Public Deployment Guide (GitHub Pages)
+## 7. Production Deployment (Cloudflare Pages — Official Hosting Target)
 
-To publish this dashboard as a publicly accessible website on GitHub Pages:
+The official public production release is hosted on **Cloudflare Pages** via native Git integration with the private GitHub repository `WebArpit07/algorithm-explorer`.
 
-1. **Initialize Git & Commit**:
-   ```powershell
-   git init
-   git add .
-   git commit -m "feat: complete Algorithm Explorer M1-M6 academic suite"
-   ```
-2. **Push to GitHub**:
-   ```powershell
-   git remote add origin https://github.com/<username>/<repo-name>.git
-   git branch -M main
-   git push -u origin main
-   ```
-3. **Configure GitHub Pages**:
-   - Go to repository **Settings** $\rightarrow$ **Pages**.
-   - Under **Build and deployment** $\rightarrow$ **Source**, choose **GitHub Actions** or **Deploy from a branch**.
-   - If deploying from a branch, select `main` and folder `/dashboard` (or configure `.github/workflows/deploy.yml` as provided).
-   - The public URL will be: `https://<username>.github.io/<repo-name>/`.
+### Build & Deployment Configuration
+- **Hosting Platform**: Cloudflare Pages
+- **Repository**: `WebArpit07/algorithm-explorer` (Private)
+- **Production Branch**: `main`
+- **Framework Preset**: `None`
+- **Root Directory**: *(empty / repository root)*
+- **Build Command**: `exit 0`
+- **Build Output Directory**: `dashboard`
+- **Production URL**: `https://algorithm-explorer.pages.dev` (or assigned project slug)
+
+Only the `dashboard/` directory is published as the document root; all Python source code, raw data, tests, and LaTeX monographs remain securely isolated inside the repository.
+
+---
+
+## 8. Alternative Deployment (GitHub Pages)
+
+For institutions utilizing GitHub Pages directly:
+1. Ensure the repository has GitHub Pages enabled under **Settings** $\rightarrow$ **Pages**.
+2. Select **GitHub Actions** as the build source to use `.github/workflows/deploy.yml`.
+3. The workflow automatically publishes `./dashboard` to `https://<username>.github.io/<repo-name>/`.
